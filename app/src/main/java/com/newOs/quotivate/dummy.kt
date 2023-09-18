@@ -4,7 +4,7 @@ data class QQuote(
     val id: Int,
     val author: String,
     val text: String,
-    val isFavorite: Boolean=false,
+    var isFavorite: Boolean=false,
 )
 
 val dummyOne = QQuote(1,"OsOs","Mohamed Osama Saleh Ahmed Abdallah Nasr Computer & Systems Engineer",false)

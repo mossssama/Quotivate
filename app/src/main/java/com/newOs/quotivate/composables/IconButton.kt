@@ -11,9 +11,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IconBtn(imageId: Int, imageDescription: String, borderColor: Color, iconColor: Color, backgroundColor: Color, modifier: Modifier) {
+fun IconBtn(imageId: Int, imageDescription: String, borderColor: Color, iconColor: Color, backgroundColor: Color, modifier: Modifier,onClick:()->Unit) {
     OutlinedButton(
-        onClick = {},
+        onClick = onClick,
         border = BorderStroke(1.dp, borderColor),
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)

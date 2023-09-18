@@ -1,37 +1,40 @@
-package com.newOs.quotivate
+package com.newOs.quotivate.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.newOs.quotivate.QuoteViewModel
 import com.newOs.quotivate.screens.FavoritesScreen
 import com.newOs.quotivate.screens.MainScreen
 import com.newOs.quotivate.screens.QuotesScreen
-import com.newOs.quotivate.navigation.Screen
 
 
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
+    val viewModel : QuoteViewModel = viewModel()
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
         composable(
             route = Screen.MainScreen.route
         ){
-            MainScreen(navController = navController)
+            MainScreen(navController = navController,viewModel = viewModel)
         }
         composable(
-            route = Screen.QuotesScreen.route+"?quote={quote}",
-            arguments = listOf(
-                navArgument("quote"){
-                    type = NavType.StringType
-                    defaultValue = "When I become expensive no one wanted me"
-                    nullable = true
-                }
-            )
-        ){ entry ->
-            QuotesScreen(name=entry.arguments?.getString("name"))
+            route = Screen.QuotesScreen.route
+//            route = Screen.QuotesScreen.route+"?quote={quote}",
+//            arguments = listOf(
+//                navArgument("quote"){
+//                    type = NavType.StringType
+//                    defaultValue = "When I become expensive no one wanted me"
+//                    nullable = true
+//                }
+//            )
+        ){
+//            entry ->
+//            QuotesScreen(name=entry.arguments?.getString("name"))
+            QuotesScreen()
         }
         composable(
             route = Screen.FavoritesScreen.route

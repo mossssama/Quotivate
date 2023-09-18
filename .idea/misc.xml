@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/favorite_icon.xml" value="0.214" />
         <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/ic_favorite.xml" value="0.387" />
+        <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/ic_favorite_empty.xml" value="0.214" />
         <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/ic_refresh.xml" value="0.387" />
         <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/ic_share.xml" value="0.1" />
         <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/refresh_icon.xml" value="0.2895" />
+        <entry key="..\:/AndroidProjects/CurrProjects/KotlinProjects/QuotivateApp/app/src/main/res/drawable/share_icon.xml" value="0.214" />
       </map>
     </option>
   </component>

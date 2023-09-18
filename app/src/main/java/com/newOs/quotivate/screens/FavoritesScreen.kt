@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.newOs.quotivate.FavoritesViewModel
 import com.newOs.quotivate.R
-import com.newOs.quotivate.composables.IconBtn
-import com.newOs.quotivate.composables.Txt
+import com.newOs.quotivate.composables.DefaultIconButton
+import com.newOs.quotivate.composables.DefaultText
 import com.newOs.quotivate.room.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
@@ -25,7 +25,7 @@ import com.newOs.quotivate.ui.theme.green
 @Composable
 fun FavoritesScreen() {
     val vm: FavoritesViewModel = viewModel()
-    LazyColumn{
+    LazyColumn {
         items(vm.getAllFavorites()) { quote ->
             FavoriteItem(quote)
         }
@@ -33,31 +33,28 @@ fun FavoritesScreen() {
 }
 
 @Composable
-fun FavoriteItem(quote: Quote){
-    Card(elevation = 6.dp, modifier = Modifier.padding(4.dp), backgroundColor = baby_blue,contentColor = black) {
+fun FavoriteItem(quote: Quote) {
+    Card(
+        elevation = 6.dp,
+        modifier = Modifier.padding(4.dp),
+        backgroundColor = baby_blue,
+        contentColor = black
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
             Column(modifier = Modifier.weight(0.85f)) {
-                FText(quoteText = quote.text,textColor = black)
-                FAuthor(quoteAuthor = quote.author,textColor = black)
+                DefaultText(text = quote.text, fontSize = 20.sp, textColor = black)
+                DefaultText(text = quote.author, fontSize = 14.sp, textColor = black)
             }
-            RemoveFavorite(modifier = Modifier.weight(0.15f), imageId = R.drawable.delete_icon, onClick = {
-                /* Delete Quote from db */
-            })
+            DefaultIconButton(
+                imageId = R.drawable.delete_icon,
+                imageDescription = "Refresh Button",
+                borderColor = black,
+                iconColor = black,
+                backgroundColor = green,
+                modifier = Modifier.weight(0.15f),
+                onClick = {
+                    /* Delete Quote from db */
+                })
         }
     }
-}
-
-@Composable
-fun FText(quoteText:String,textColor: Color) {
-    Txt(text = quoteText,fontSize = 20.sp,textColor=textColor)
-}
-
-@Composable
-fun FAuthor(quoteAuthor:String,textColor: Color) {
-    Txt(text = quoteAuthor,fontSize = 14.sp,textColor=textColor)
-}
-
-@Composable
-fun RemoveFavorite(modifier: Modifier,imageId:Int,onClick: ()->Unit) {
-    IconBtn(imageId = imageId, imageDescription = "Refresh Button", borderColor = black, iconColor = black,backgroundColor = green,modifier = modifier, onClick = onClick)
 }

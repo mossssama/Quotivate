@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TextBtn(text: String, modifier: Modifier, textColor: Color, backgroundColor: Color, cornersShape: Shape, onClick: ()-> Unit) {
+fun DefaultTextButton(text: String, modifier: Modifier, textColor: Color, backgroundColor: Color, cornersShape: Shape, onClick: ()-> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),

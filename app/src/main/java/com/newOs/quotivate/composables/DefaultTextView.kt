@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 
 @Composable
-fun TxtView(text: String, fontSize: TextUnit, textColor: Color, backgroundColor: Color, modifier: Modifier, cornersShape: Shape) {
+fun DefaultTextView(text: String, fontSize: TextUnit, textColor: Color, backgroundColor: Color, modifier: Modifier, cornersShape: Shape) {
     Box(
         modifier = modifier
             .fillMaxSize()

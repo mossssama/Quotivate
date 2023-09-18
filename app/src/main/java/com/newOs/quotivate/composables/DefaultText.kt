@@ -8,7 +8,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 
 @Composable
-fun Txt(text: String, fontSize: TextUnit, textColor: Color) {
+fun DefaultText(text: String, fontSize: TextUnit, textColor: Color) {
     Text(
         text = text,
         style = TextStyle(

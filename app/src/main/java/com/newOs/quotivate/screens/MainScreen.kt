@@ -9,16 +9,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.newOs.quotivate.QuoteViewModel
-import com.newOs.quotivate.composables.IconBtn
-import com.newOs.quotivate.composables.TextBtn
-import com.newOs.quotivate.composables.TxtView
+import com.newOs.quotivate.composables.DefaultIconButton
+import com.newOs.quotivate.composables.DefaultTextButton
+import com.newOs.quotivate.composables.DefaultTextView
 import com.newOs.quotivate.navigation.Screen
 import com.newOs.quotivate.ui.theme.*
 
 @Composable
-fun MainScreen(navController: NavController,viewModel: QuoteViewModel) {
+fun MainScreen(navController: NavController, viewModel: QuoteViewModel) {
 
-    var currentQuote by remember { mutableStateOf(viewModel.getRandomQuote())}
+    var currentQuote by remember { mutableStateOf(viewModel.getRandomQuote()) }
 
     Column(
         modifier = Modifier
@@ -27,21 +27,34 @@ fun MainScreen(navController: NavController,viewModel: QuoteViewModel) {
             .background(color = black),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        QuoteText(
+
+        /* Quote itself */
+        DefaultTextView(
+            text = currentQuote.text,
+            fontSize = 80.sp,
+            textColor = black,
+            backgroundColor = baby_blue,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
                 .padding(4.dp, 4.dp, 4.dp, 1.dp),
-            quoteText = currentQuote.text
+            cornersShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         )
-        QuoteAuthor(
+
+        /* Quote author */
+        DefaultTextView(
+            text = currentQuote.author,
+            fontSize = 20.sp,
+            textColor = black,
+            backgroundColor = baby_blue,
             modifier = Modifier
                 .weight(0.2f)
                 .fillMaxWidth()
                 .padding(4.dp, 0.dp, 4.dp, 2.dp),
-            quoteAuthor = currentQuote.author
+            cornersShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         )
 
+        /* Interaction Buttons */
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
@@ -50,82 +63,77 @@ fun MainScreen(navController: NavController,viewModel: QuoteViewModel) {
                 .fillMaxHeight()
                 .padding(3.dp, 2.dp, 3.dp, 2.dp)
         ) {
-            RefreshQuote(
+            DefaultIconButton(
+                imageId = com.newOs.quotivate.R.drawable.refresh_icon,
+                imageDescription = "Refresh Button",
+                borderColor = black,
+                iconColor = black,
+                backgroundColor = green,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
                 onClick = { currentQuote = viewModel.getRandomQuote() }
             )
-            FavQuote(
+
+            DefaultIconButton(
+                imageId = com.newOs.quotivate.R.drawable.favorite_icon,
+                imageDescription = "Favorite Button",
+                borderColor = black,
+                iconColor = black,
+                backgroundColor = blue,
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                onClick = {}
             )
-            ShareQuote(
+
+            DefaultIconButton(
+                imageId = com.newOs.quotivate.R.drawable.share_icon,
+                imageDescription = "Share Button",
+                borderColor = black,
+                iconColor = black,
+                backgroundColor = red,
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                onClick = {}
             )
+
         }
 
-        ShowFavoriteQuotes(
+        DefaultTextButton(
+            text = "Favorites",
             modifier = Modifier
                 .weight(0.14f)
                 .fillMaxWidth()
                 .padding(4.dp, 2.dp, 4.dp, 2.dp),
-            navController = navController
+            textColor = black,
+            backgroundColor = yellow,
+            cornersShape = RoundedCornerShape(topStart = 0.dp),
+            onClick = { navigateToFavoritesScreen(navController) }
         )
 
-        ShowMoreQuotes(
+        DefaultTextButton(
+            text = "More",
             modifier = Modifier
                 .weight(0.14f)
                 .fillMaxWidth()
                 .padding(4.dp, 2.dp, 4.dp, 4.dp),
-            navController = navController
+            textColor = black,
+            backgroundColor = pink,
+            cornersShape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
+            onClick = { navigateToQuotesScreen(navController) }
         )
+
     }
 }
 
-@Composable
-fun QuoteText(modifier: Modifier,quoteText: String) {
-    TxtView(text = quoteText,fontSize = 80.sp,textColor = black, backgroundColor = baby_blue,modifier = modifier, cornersShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-}
 
-@Composable
-fun QuoteAuthor(modifier: Modifier,quoteAuthor: String) {
-    TxtView(text = quoteAuthor,fontSize = 16.sp,textColor = black, backgroundColor = baby_blue,modifier = modifier, cornersShape = RoundedCornerShape(topStart=0.dp))
-}
-
-@Composable
-fun RefreshQuote(modifier: Modifier,onClick: ()->Unit) {
-    IconBtn(imageId = com.newOs.quotivate.R.drawable.refresh_icon, imageDescription = "Refresh Button", borderColor = black, iconColor = black,backgroundColor = green,modifier = modifier, onClick = onClick)
-}
-
-@Composable
-fun FavQuote(modifier: Modifier) {
-    IconBtn(imageId = com.newOs.quotivate.R.drawable.favorite_icon, imageDescription = "Favorite Button", borderColor = black, iconColor = black,backgroundColor = blue,modifier = modifier, onClick = {})
-}
-
-@Composable
-fun ShareQuote(modifier: Modifier) {
-    IconBtn(imageId = com.newOs.quotivate.R.drawable.share_icon, imageDescription = "Share Button", borderColor = black, iconColor = black, backgroundColor = red,modifier = modifier, onClick = {})
-}
-
-@Composable
-fun ShowFavoriteQuotes(modifier: Modifier, navController: NavController) {
-    TextBtn("Favorites",modifier, textColor = black, backgroundColor = yellow, cornersShape = RoundedCornerShape(topStart=0.dp), onClick = { navigateToFavoritesScreen(navController) })
-}
-
-@Composable
-fun ShowMoreQuotes(modifier: Modifier, navController: NavController) {
-    TextBtn("More",modifier, textColor = black, backgroundColor = pink, cornersShape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp), onClick = { navigateToQuotesScreen(navController) })
-}
-
-fun navigateToFavoritesScreen(navController: NavController){
+fun navigateToFavoritesScreen(navController: NavController) {
     navController.navigate(Screen.FavoritesScreen.route)
 }
 
-fun navigateToQuotesScreen(navController: NavController){
+fun navigateToQuotesScreen(navController: NavController) {
     navController.navigate(Screen.QuotesScreen.route)
 }
 

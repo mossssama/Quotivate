@@ -22,16 +22,16 @@ import com.newOs.quotivate.ui.theme.green
 @Composable
 fun QuotesScreen() {
     val vm: QuotesViewModel = viewModel()
+
     LazyColumn {
-        items(vm.getAllQuotes()) { quote ->
-            QuoteItem(quote)
+        items(vm.state) { quote ->
+            QuoteItem(quote){ vm.toggleFavoriteState(it) }
         }
     }
 }
 
 @Composable
-fun QuoteItem(quote: QQuote) {
-    var isFavorite by remember { mutableStateOf(quote.isFavorite) }
+fun QuoteItem(quote: QQuote,onClick: (Int)->Unit) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),
@@ -44,15 +44,14 @@ fun QuoteItem(quote: QQuote) {
                 DefaultText(text = quote.author, fontSize = 14.sp, textColor = black)
             }
             DefaultIconButton(
-                imageId = if (isFavorite) R.drawable.favorite_icon else R.drawable.favorite_hollow_icon,
+                imageId = if (quote.isFavorite) R.drawable.favorite_icon else R.drawable.favorite_hollow_icon,
                 imageDescription = "Refresh Button",
                 borderColor = black,
                 iconColor = black,
                 backgroundColor = green,
                 modifier = Modifier.weight(0.15f),
-                onClick = {
-                    isFavorite = !isFavorite
-                })
+                onClick = { onClick(quote.id) }
+            )
 
         }
     }

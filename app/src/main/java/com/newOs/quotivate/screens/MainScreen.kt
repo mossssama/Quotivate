@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.newOs.quotivate.QuoteViewModel
+import com.newOs.quotivate.QuotesViewModel
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultTextButton
 import com.newOs.quotivate.composables.DefaultTextView
@@ -16,7 +16,7 @@ import com.newOs.quotivate.navigation.Screen
 import com.newOs.quotivate.ui.theme.*
 
 @Composable
-fun MainScreen(navController: NavController, viewModel: QuoteViewModel) {
+fun MainScreen(navController: NavController, viewModel: QuotesViewModel) {
 
     var currentQuote by remember { mutableStateOf(viewModel.getRandomQuote()) }
 

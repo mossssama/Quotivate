@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.newOs.quotivate.FavoritesViewModel
 import com.newOs.quotivate.QQuote
+import com.newOs.quotivate.QuotesViewModel
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultText
@@ -23,7 +23,7 @@ import com.newOs.quotivate.ui.theme.green
 
 @Composable
 fun FavoritesScreen() {
-    val vm: FavoritesViewModel = viewModel()
+    val vm: QuotesViewModel = viewModel()
     LazyColumn {
         items(vm.getAllFavorites()) {
             FavoriteItem(it)

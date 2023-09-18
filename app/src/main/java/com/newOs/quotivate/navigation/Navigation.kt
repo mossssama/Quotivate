@@ -5,7 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.newOs.quotivate.QuoteViewModel
+import com.newOs.quotivate.QuotesViewModel
 import com.newOs.quotivate.screens.FavoritesScreen
 import com.newOs.quotivate.screens.MainScreen
 import com.newOs.quotivate.screens.QuotesScreen
@@ -14,7 +14,7 @@ import com.newOs.quotivate.screens.QuotesScreen
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    val viewModel : QuoteViewModel = viewModel()
+    val viewModel : QuotesViewModel = viewModel()
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
         composable(
             route = Screen.MainScreen.route

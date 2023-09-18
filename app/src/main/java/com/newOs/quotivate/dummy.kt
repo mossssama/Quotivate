@@ -1,19 +1,24 @@
 package com.newOs.quotivate
 
-import com.newOs.quotivate.room.Quote
+data class QQuote(
+    val id: Int,
+    val author: String,
+    val text: String,
+    val isFavorite: Boolean=false,
+)
 
-val dummyOne = Quote("OsOs","Mohamed Osama Saleh Ahmed Abdallah Nasr Computer & Systems Engineer",false)
-val dummyTwo = Quote("Nozwa","Nihal",false)
-val dummyThree = Quote("Weza","Amal",true)
-val dummyFour = Quote("GOAT","Leo",false)
-val dummyFive = Quote("OsOs","Mohamed",false)
-val dummySix = Quote("Nozwa","Nihal",false)
-val dummySeven = Quote("Weza","Amal",true)
-val dummyEight = Quote("GOAT","Leo",false)
-val dummyNine = Quote("OsOs","Mohamed",false)
-val dummyTen = Quote("Nozwa","Nihal",false)
-val dummyEleven = Quote("Weza","Amal",true)
-val dummyTwelve = Quote("GOAT","Leo",false)
+val dummyOne = QQuote(1,"OsOs","Mohamed Osama Saleh Ahmed Abdallah Nasr Computer & Systems Engineer",false)
+val dummyTwo = QQuote(2,"Nozwa","Nihal")
+val dummyThree = QQuote(3,"Weza","Amal",true)
+val dummyFour = QQuote(4,"GOAT","Leo",false)
+val dummyFive = QQuote(5,"OsOs","Mohamed",false)
+val dummySix = QQuote(6, "Nozwa","Nihal",false)
+val dummySeven = QQuote(7, "Weza","Amal",true)
+val dummyEight = QQuote(8, "GOAT","Leo",false)
+val dummyNine = QQuote(9,"OsOs","Mohamed",false)
+val dummyTen = QQuote(10,"Nozwa","Nihal",false)
+val dummyEleven = QQuote(11,"Weza","Amal",true)
+val dummyTwelve = QQuote(12, "GOAT","Leo",false)
 
 
 val quoteList = listOf(

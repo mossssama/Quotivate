@@ -9,15 +9,14 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.newOs.quotivate.FavoritesViewModel
+import com.newOs.quotivate.QQuote
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultText
-import com.newOs.quotivate.room.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
@@ -26,14 +25,14 @@ import com.newOs.quotivate.ui.theme.green
 fun FavoritesScreen() {
     val vm: FavoritesViewModel = viewModel()
     LazyColumn {
-        items(vm.getAllFavorites()) { quote ->
-            FavoriteItem(quote)
+        items(vm.getAllFavorites()) {
+            FavoriteItem(it)
         }
     }
 }
 
 @Composable
-fun FavoriteItem(quote: Quote) {
+fun FavoriteItem(quote: QQuote) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),

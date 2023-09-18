@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.newOs.quotivate.QQuote
 import com.newOs.quotivate.QuotesViewModel
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultText
-import com.newOs.quotivate.room.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
@@ -30,7 +30,7 @@ fun QuotesScreen() {
 }
 
 @Composable
-fun QuoteItem(quote: Quote) {
+fun QuoteItem(quote: QQuote) {
     var isFavorite by remember { mutableStateOf(quote.isFavorite) }
     Card(
         elevation = 6.dp,

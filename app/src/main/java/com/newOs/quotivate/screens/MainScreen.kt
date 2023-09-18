@@ -50,8 +50,7 @@ fun MainScreen(navController: NavController, viewModel: QuoteViewModel) {
             modifier = Modifier
                 .weight(0.2f)
                 .fillMaxWidth()
-                .padding(4.dp, 0.dp, 4.dp, 2.dp),
-            cornersShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                .padding(4.dp, 0.dp, 4.dp, 2.dp)
         )
 
         /* Interaction Buttons */

@@ -7,7 +7,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.newOs.quotivate.MainViewModel
 import com.newOs.quotivate.QuotesViewModel
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultTextButton
@@ -16,9 +18,8 @@ import com.newOs.quotivate.navigation.Screen
 import com.newOs.quotivate.ui.theme.*
 
 @Composable
-fun MainScreen(navController: NavController, viewModel: QuotesViewModel) {
-
-    var currentQuote by remember { mutableStateOf(viewModel.getRandomQuote()) }
+fun MainScreen(navController: NavController) {
+    val vm: MainViewModel = viewModel()
 
     Column(
         modifier = Modifier
@@ -30,7 +31,7 @@ fun MainScreen(navController: NavController, viewModel: QuotesViewModel) {
 
         /* Quote itself */
         DefaultTextView(
-            text = currentQuote.text,
+            text = vm.state.text,
             fontSize = 80.sp,
             textColor = black,
             backgroundColor = baby_blue,
@@ -43,7 +44,7 @@ fun MainScreen(navController: NavController, viewModel: QuotesViewModel) {
 
         /* Quote author */
         DefaultTextView(
-            text = currentQuote.author,
+            text = vm.state.author,
             fontSize = 20.sp,
             textColor = black,
             backgroundColor = baby_blue,
@@ -71,7 +72,7 @@ fun MainScreen(navController: NavController, viewModel: QuotesViewModel) {
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                onClick = { currentQuote = viewModel.getRandomQuote() }
+                onClick = { vm.getRandomQuote() }
             )
 
             DefaultIconButton(

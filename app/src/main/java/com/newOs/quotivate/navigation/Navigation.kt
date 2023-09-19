@@ -14,12 +14,11 @@ import com.newOs.quotivate.screens.QuotesScreen
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    val viewModel : QuotesViewModel = viewModel()
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
         composable(
             route = Screen.MainScreen.route
         ){
-            MainScreen(navController = navController,viewModel = viewModel)
+            MainScreen(navController = navController)
         }
         composable(
             route = Screen.QuotesScreen.route

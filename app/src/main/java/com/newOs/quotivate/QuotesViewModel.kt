@@ -7,56 +7,63 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newOs.quotivate.api.RetrofitClient
+import com.newOs.quotivate.helpers.convertToQuoteList
+import com.newOs.quotivate.room.FavoriteQuoteState
 import com.newOs.quotivate.room.Quote
+import com.newOs.quotivate.room.QuoteDatabase
 import kotlinx.coroutines.*
+import kotlin.Exception
 
-class QuotesViewModel(private val stateHandle: SavedStateHandle):ViewModel() {
+class QuotesViewModel():ViewModel() {
     var state by mutableStateOf(emptyList<Quote>())
 
+    private var quotesDao = QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
+
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
-        /* Execute any code we want incase no internet connection or server is failed*/
+        /* Execute any code we want in case no internet connection or server is failed*/
     }
 
     init{ getAllQuotes() }
 
     private fun getAllQuotes(){
         viewModelScope.launch(coroutineExceptionHandler) {
-            val quotes = getQuotesFromAPI()
-            state = convertToQuoteList(quotes).restoreFavoriteQuotes()
+            state = getQuotesFromAPI()
         }
     }
 
-    private suspend fun getQuotesFromAPI() = withContext(Dispatchers.IO){ RetrofitClient.api.getAllQuotes() }
+    private suspend fun getQuotesFromAPI() = withContext(Dispatchers.IO){
+        try {
+            updateLocalDatabase()
+        }catch (e:Exception){
+            if(quotesDao.getAllQuotes().isEmpty()){
+                throw Exception("Something went wrong, No data was found, try connecting to the Internet")
+            }
+        }
+        quotesDao.getAllQuotes()
+    }
+
+    private suspend fun updateLocalDatabase() {
+        val quotes = RetrofitClient.api.getAllQuotes()
+        val favoriteQuotesList = quotesDao.getAllFavoriteQuotes()
+        quotesDao.addAllQuotes(convertToQuoteList(quotes))
+        quotesDao.updateAll(favoriteQuotesList.map { FavoriteQuoteState(id=it.id, isFavorite = true) })
+    }
 
     fun toggleFavoriteState(quoteId: Int){
         val quotes = state.toMutableList()
         val itemIndex = quotes.indexOfFirst { it.id == quoteId }
-        quotes[itemIndex] = quotes[itemIndex].copy(isFavorite = !quotes[itemIndex].isFavorite)
-        storeSelectedQuote(quotes[itemIndex])
-        state = quotes
-    }
 
-    private fun storeSelectedQuote(quote: Quote){
-        val savedHandleList = stateHandle.get<List<Int>?>(FAV_IDS).orEmpty().toMutableList()
-        if(quote.isFavorite) savedHandleList.add(quote.id)
-        else savedHandleList.remove(quote.id)
-        stateHandle[FAV_IDS] = savedHandleList
-    }
-
-    private fun List<Quote>.restoreFavoriteQuotes(): List<Quote>{
-        stateHandle.get<List<Int>?>(FAV_IDS)?.let { savedIds ->
-            savedIds.forEach { quoteId ->
-                this.find { it.id == quoteId }?.isFavorite = true
-            }
+        viewModelScope.launch {
+            val updatedQuotesList = toggleFavoriteQuote(quoteId,!quotes[itemIndex].isFavorite)
+            state = updatedQuotesList
         }
-        return this
+
     }
 
-    companion object {
-        const val FAV_IDS = "FavoriteQuotesIDs"
+    private suspend fun toggleFavoriteQuote(quoteId:Int, newFavoriteState: Boolean) = withContext(Dispatchers.IO){
+        quotesDao.updateQuote(FavoriteQuoteState(id = quoteId, isFavorite = newFavoriteState))
+        return@withContext quotesDao.getAllQuotes()
     }
 
-
-//    fun getRandomQuote() = quoteList.random()
     fun getAllFavorites() = quoteList.filter { it.isFavorite }
 }

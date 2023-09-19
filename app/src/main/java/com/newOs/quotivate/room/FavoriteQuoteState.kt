@@ -5,13 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Quote(
-    val author: String,
-    val text: String,
-
+data class FavoriteQuoteState(
     @ColumnInfo("isFavorite")
     val isFavorite: Boolean = false,
-
     @ColumnInfo("id")
-    @PrimaryKey(autoGenerate = true) val id : Int = 0
+    @PrimaryKey(autoGenerate = true) val id : Int
 )

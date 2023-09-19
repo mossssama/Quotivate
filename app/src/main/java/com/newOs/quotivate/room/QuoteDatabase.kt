@@ -5,19 +5,34 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Quote::class], version = 1)
+@Database(
+    entities = [Quote::class],
+    version = 2,
+    exportSchema = false
+)
 abstract class QuoteDatabase: RoomDatabase() {
-    abstract val quoteDao: QuoteDao
+    abstract val dao: QuoteDao
 
     companion object {
         @Volatile
-        private var INSTANCE: QuoteDatabase? = null
+        private var daoInstance: QuoteDao? = null
 
-        fun getInstance(context: Context): QuoteDatabase = INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(context.applicationContext, QuoteDatabase::class.java, "quote_database").fallbackToDestructiveMigration().build()
-                INSTANCE = instance
-                instance
+        private fun buildDatabase(context: Context):QuoteDatabase =
+            Room.databaseBuilder(
+                context.applicationContext,
+                QuoteDatabase::class.java,
+                "quotes_database"
+            ).fallbackToDestructiveMigration().build()
+
+        fun getInstance(context: Context):QuoteDao{
+            synchronized(this){
+                if(daoInstance==null){
+                    daoInstance= buildDatabase(context).dao
+                }
+                return daoInstance as QuoteDao
             }
+        }
+
     }
 
 }

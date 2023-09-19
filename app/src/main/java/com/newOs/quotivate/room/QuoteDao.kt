@@ -12,7 +12,10 @@ interface QuoteDao {
     suspend fun deleteQuote(quoteId:Int)
 
     @Query("SELECT * FROM Quote ORDER BY author ASC")
-    fun getAllQuotes(): LiveData<List<Quote>>
+    suspend fun getAllQuotes(): List<Quote>
+
+    @Insert(onConflict= OnConflictStrategy.REPLACE)
+    fun addAllQuotes(quotes: List<Quote>)
 
     @Query("SELECT * FROM Quote WHERE isFavorite = true ORDER BY author ASC")
     fun getAllFavoriteQuotes(): LiveData<List<Quote>>

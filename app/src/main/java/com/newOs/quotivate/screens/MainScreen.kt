@@ -110,7 +110,7 @@ fun MainScreen(navController: NavController) {
             textColor = black,
             backgroundColor = yellow,
             cornersShape = RoundedCornerShape(topStart = 0.dp),
-            onClick = { navigateToFavoritesScreen(navController) }
+            onClick = { navController.navigate(Screen.FavoritesScreen.route) }
         )
 
         DefaultTextButton(
@@ -122,19 +122,10 @@ fun MainScreen(navController: NavController) {
             textColor = black,
             backgroundColor = pink,
             cornersShape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-            onClick = { navigateToQuotesScreen(navController) }
+            onClick = { navController.navigate(Screen.QuotesScreen.route) }
         )
 
     }
-}
-
-
-fun navigateToFavoritesScreen(navController: NavController) {
-    navController.navigate(Screen.FavoritesScreen.route)
-}
-
-fun navigateToQuotesScreen(navController: NavController) {
-    navController.navigate(Screen.QuotesScreen.route)
 }
 
 

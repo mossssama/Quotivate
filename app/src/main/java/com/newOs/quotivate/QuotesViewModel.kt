@@ -7,10 +7,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newOs.quotivate.api.RetrofitClient
+import com.newOs.quotivate.room.Quote
 import kotlinx.coroutines.*
 
 class QuotesViewModel(private val stateHandle: SavedStateHandle):ViewModel() {
-    var state by mutableStateOf(emptyList<QQuote>())
+    var state by mutableStateOf(emptyList<Quote>())
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
         /* Execute any code we want incase no internet connection or server is failed*/
@@ -35,14 +36,14 @@ class QuotesViewModel(private val stateHandle: SavedStateHandle):ViewModel() {
         state = quotes
     }
 
-    private fun storeSelectedQuote(quote: QQuote){
+    private fun storeSelectedQuote(quote: Quote){
         val savedHandleList = stateHandle.get<List<Int>?>(FAV_IDS).orEmpty().toMutableList()
         if(quote.isFavorite) savedHandleList.add(quote.id)
         else savedHandleList.remove(quote.id)
         stateHandle[FAV_IDS] = savedHandleList
     }
 
-    private fun List<QQuote>.restoreFavoriteQuotes(): List<QQuote>{
+    private fun List<Quote>.restoreFavoriteQuotes(): List<Quote>{
         stateHandle.get<List<Int>?>(FAV_IDS)?.let { savedIds ->
             savedIds.forEach { quoteId ->
                 this.find { it.id == quoteId }?.isFavorite = true
@@ -56,23 +57,6 @@ class QuotesViewModel(private val stateHandle: SavedStateHandle):ViewModel() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    fun getRandomQuote() = quoteList.random()
+//    fun getRandomQuote() = quoteList.random()
     fun getAllFavorites() = quoteList.filter { it.isFavorite }
 }

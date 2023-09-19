@@ -1,49 +1,20 @@
 package com.newOs.quotivate
 
 import com.newOs.quotivate.api.SingleQuote
+import com.newOs.quotivate.room.Quote
 
-data class QQuote(
-    val id: Int,
-    val author: String,
-    val text: String,
-    var isFavorite: Boolean=false,
-)
-
-val dummyOne = QQuote(1,"OsOs","Mohamed Osama Saleh Ahmed Abdallah Nasr Computer & Systems Engineer",false)
-val dummyTwo = QQuote(2,"Nozwa","Nihal")
-val dummyThree = QQuote(3,"Weza","Amal",true)
-val dummyFour = QQuote(4,"GOAT","Leo",false)
-val dummyFive = QQuote(5,"OsOs","Mohamed",false)
-val dummySix = QQuote(6, "Nozwa","Nihal",false)
-val dummySeven = QQuote(7, "Weza","Amal",true)
-val dummyEight = QQuote(8, "GOAT","Leo",false)
-val dummyNine = QQuote(9,"OsOs","Mohamed",false)
-val dummyTen = QQuote(10,"Nozwa","Nihal",false)
-val dummyEleven = QQuote(11,"Weza","Amal",true)
-val dummyTwelve = QQuote(12, "GOAT","Leo",false)
-
+val dummyOne = Quote(id = 1, author = "OsOs",text = "Mohamed Osama Saleh Ahmed Abdallah Nasr Computer & Systems Engineer",isFavorite = false)
+val dummyFour = Quote(id = 4,author = "GOAT",text = "Leo",isFavorite = true)
 
 val quoteList = listOf(
     dummyOne,
-    dummyTwo,
-    dummyThree,
     dummyFour,
-    dummyFive,
-    dummySix,
-    dummySeven,
-    dummyEight,
-    dummyNine,
-    dummyTen,
-    dummyEleven,
-    dummyTwelve
 )
 
-
-
-fun convertToQuoteList(singleQuotes: List<SingleQuote>): List<QQuote> {
+fun convertToQuoteList(singleQuotes: List<SingleQuote>): List<Quote> {
     var idCounter = 1
     return singleQuotes.map { singleQuote ->
-        val quote = QQuote(idCounter, singleQuote.author, singleQuote.text)
+        val quote = Quote(id = idCounter, author = singleQuote.author,text = singleQuote.text,isFavorite = false)
         idCounter++
         quote
     }

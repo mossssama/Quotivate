@@ -22,7 +22,6 @@ import com.newOs.quotivate.ui.theme.green
 @Composable
 fun QuotesScreen() {
     val vm: QuotesViewModel = viewModel()
-
     LazyColumn {
         items(vm.state) { quote ->
             QuoteItem(quote){ vm.toggleFavoriteState(it) }

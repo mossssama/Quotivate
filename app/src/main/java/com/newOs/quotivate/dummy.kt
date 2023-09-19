@@ -1,5 +1,7 @@
 package com.newOs.quotivate
 
+import com.newOs.quotivate.api.SingleQuote
+
 data class QQuote(
     val id: Int,
     val author: String,
@@ -35,3 +37,14 @@ val quoteList = listOf(
     dummyEleven,
     dummyTwelve
 )
+
+
+
+fun convertToQuoteList(singleQuotes: List<SingleQuote>): List<QQuote> {
+    var idCounter = 1
+    return singleQuotes.map { singleQuote ->
+        val quote = QQuote(idCounter, singleQuote.author, singleQuote.text)
+        idCounter++
+        quote
+    }
+}

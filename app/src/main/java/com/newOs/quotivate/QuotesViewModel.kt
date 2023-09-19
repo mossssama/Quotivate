@@ -5,13 +5,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.newOs.quotivate.api.RetrofitClient
+import kotlinx.coroutines.*
 
-class QuotesViewModel(
-    private val stateHandle: SavedStateHandle
-):ViewModel() {
-    var state by mutableStateOf(restoreFavoriteQuotes())
+class QuotesViewModel(private val stateHandle: SavedStateHandle):ViewModel() {
+    var state by mutableStateOf(emptyList<QQuote>())
 
-    private fun getAllQuotes()= quoteList
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
+        /* Execute any code we want incase no internet connection or server is failed*/
+    }
+
+    init{ getAllQuotes() }
+
+    private fun getAllQuotes(){
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val quotes = getQuotesFromAPI()
+            state = convertToQuoteList(quotes).restoreFavoriteQuotes()
+        }
+    }
+
+    private suspend fun getQuotesFromAPI() = withContext(Dispatchers.IO){ RetrofitClient.api.getAllQuotes() }
 
     fun toggleFavoriteState(quoteId: Int){
         val quotes = state.toMutableList()
@@ -28,14 +42,13 @@ class QuotesViewModel(
         stateHandle[FAV_IDS] = savedHandleList
     }
 
-    private fun restoreFavoriteQuotes(): List<QQuote>{
-        val quotes = getAllQuotes()
+    private fun List<QQuote>.restoreFavoriteQuotes(): List<QQuote>{
         stateHandle.get<List<Int>?>(FAV_IDS)?.let { savedIds ->
             savedIds.forEach { quoteId ->
-                quotes.find { it.id == quoteId }?.isFavorite = true
+                this.find { it.id == quoteId }?.isFavorite = true
             }
         }
-        return quotes
+        return this
     }
 
     companion object {

@@ -19,7 +19,7 @@ object RetrofitClient {
             .build()
     }
 
-    val api: Api by lazy {
-        retrofit.create(Api::class.java)
+    val api: QuotesApiService by lazy {
+        retrofit.create(QuotesApiService::class.java)
     }
 }

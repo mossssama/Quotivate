@@ -5,9 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newOs.quotivate.quotes.domain.useCases.GetInitialQuotesUseCase
 import com.newOs.quotivate.quotes.domain.useCases.ToggleFavoriteStateUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class QuotesViewModel:ViewModel() {
+@HiltViewModel
+class QuotesViewModel @Inject constructor(
+    private val getInitialQuotesUseCase: GetInitialQuotesUseCase,
+    private val toggleFavoriteStateUseCase: ToggleFavoriteStateUseCase
+):ViewModel() {
     private var _state by mutableStateOf(
         QuotesScreenState(
             quotes = emptyList(),
@@ -19,10 +25,6 @@ class QuotesViewModel:ViewModel() {
     val state: State<QuotesScreenState>
         get() = derivedStateOf { _state }
 
-
-    /* Use Cases linking between ViewModel & Repo */
-    private val getInitialQuotesUseCase = GetInitialQuotesUseCase()
-    private val toggleFavoriteStateUseCase = ToggleFavoriteStateUseCase()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _state = _state.copy(

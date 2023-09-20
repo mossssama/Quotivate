@@ -1,18 +1,23 @@
 package com.newOs.quotivate.quotes.data
 
-import com.newOs.quotivate.QuotesApplication
-import com.newOs.quotivate.quotes.data.remote.RetrofitClient
 import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.quotes.data.local.LocalQuoteFavoriteState
+import com.newOs.quotivate.quotes.data.local.QuoteDao
+import com.newOs.quotivate.quotes.data.remote.QuotesApiService
 import com.newOs.quotivate.quotes.domain.Quote
-import com.newOs.quotivate.quotes.data.local.QuoteDatabase
 import com.newOs.quotivate.quotes.data.remote.RemoteQuote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class QuotesRepository {
-    private var quotesDao = QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
-    private var apiService = RetrofitClient.api
+@Singleton
+class QuotesRepository @Inject constructor(
+    private val quotesDao: QuoteDao,
+    private val apiService: QuotesApiService
+) {
+//    private var quotesDao = QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
+//    private var apiService = RetrofitClient.api
 
     suspend fun loadQuotes() = withContext(Dispatchers.IO){
         try {
@@ -34,9 +39,6 @@ class QuotesRepository {
     private suspend fun updateLocalDatabase() {
         val quotes = apiService.getQuotes()
         val favoriteQuotesList = quotesDao.getFavoriteQuotes()
-//        quotesDao.addAll(quotes.map {
-//            LocalQuote(author = it.author,text = it.text)
-//        })
         quotesDao.addAll(convertToLocalQuoteList(quotes))
         quotesDao.updateAll(favoriteQuotesList.map { LocalQuoteFavoriteState(id=it.id, isFavorite = true) })
     }
@@ -46,7 +48,7 @@ class QuotesRepository {
         return@withContext quotesDao.getAll()
     }
 
-    fun convertToLocalQuoteList(singleQuotes: List<RemoteQuote>): List<LocalQuote> {
+    private fun convertToLocalQuoteList(singleQuotes: List<RemoteQuote>): List<LocalQuote> {
         var idCounter = 1
         return singleQuotes.map { singleQuote ->
             val quote = LocalQuote(id = idCounter, author = singleQuote.author, text = singleQuote.text)

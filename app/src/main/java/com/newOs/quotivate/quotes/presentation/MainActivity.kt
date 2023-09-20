@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,7 +13,9 @@ import com.newOs.quotivate.quotes.presentation.quoteOfDay.MainScreen
 import com.newOs.quotivate.quotes.presentation.quotesList.QuotesScreen
 import com.newOs.quotivate.quotes.presentation.quotesList.QuotesViewModel
 import com.newOs.quotivate.ui.theme.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ fun Navigation(){
             MainScreen(navController = navController)
         }
         composable(route = Screen.QuotesScreen.route){
-            val vm : QuotesViewModel = viewModel()
+            val vm : QuotesViewModel = hiltViewModel()
             QuotesScreen(
                 state = vm.state.value,
                 onFavoriteIconClick = { id,oldValue ->

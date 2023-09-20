@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.newOs.quotivate.MainViewModel
-import com.newOs.quotivate.QuotesViewModel
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultTextButton
 import com.newOs.quotivate.composables.DefaultTextView

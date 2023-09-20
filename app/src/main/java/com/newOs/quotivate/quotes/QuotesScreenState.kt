@@ -1,4 +1,4 @@
-package com.newOs.quotivate
+package com.newOs.quotivate.quotes
 
 import com.newOs.quotivate.room.Quote
 

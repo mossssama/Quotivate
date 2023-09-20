@@ -1,4 +1,4 @@
-package com.newOs.quotivate.screens
+package com.newOs.quotivate.quotes
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.newOs.quotivate.QuotesViewModel
+import com.newOs.quotivate.quotes.QuotesViewModel
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultText
@@ -24,7 +24,7 @@ import com.newOs.quotivate.ui.theme.green
 @Composable
 fun QuotesScreen() {
     val vm: QuotesViewModel = viewModel()
-    val state = vm.state
+    val state = vm.state.value
 
     Box(
         contentAlignment = Alignment.Center,

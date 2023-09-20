@@ -1,8 +1,6 @@
 package com.newOs.quotivate.quotes.data.local
 
 import androidx.room.*
-import com.newOs.quotivate.quotes.data.local.LocalQuote
-import com.newOs.quotivate.quotes.data.local.LocalQuoteFavoriteState
 
 @Dao
 interface QuoteDao {
@@ -21,14 +19,6 @@ interface QuoteDao {
     @Update(entity = LocalQuote::class)
     suspend fun updateAll(quotesStates: List<LocalQuoteFavoriteState>)
 
-
-
-
-
-
-
-
-//
 //    @Insert
 //    suspend fun insertQuote(quote: LocalQuote)
 //
@@ -37,4 +27,5 @@ interface QuoteDao {
 //
 //    @Query("DELETE FROM LocalQuote")
 //    suspend fun clearQuotes()
+
 }

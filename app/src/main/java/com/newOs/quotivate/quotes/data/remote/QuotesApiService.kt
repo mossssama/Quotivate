@@ -1,6 +1,5 @@
 package com.newOs.quotivate.quotes.data.remote
 
-import com.newOs.quotivate.quotes.data.local.LocalQuote
 import retrofit2.http.*
 
 interface QuotesApiService {

@@ -16,7 +16,7 @@ class MainViewModel: ViewModel() {
     var state by mutableStateOf(RemoteQuote("",""))
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
-        /* Execute any code we want incase no internet connection or server is failed*/
+        /* Execute any code we want in case no internet connection or server is failed*/
     }
 
     init{ getRandomQuote() }

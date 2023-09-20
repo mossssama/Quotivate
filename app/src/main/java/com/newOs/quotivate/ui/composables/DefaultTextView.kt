@@ -1,4 +1,4 @@
-package com.newOs.quotivate.composables
+package com.newOs.quotivate.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DefaultTextView(text: String, fontSize: TextUnit, textColor: Color, backgroundColor: Color, modifier: Modifier, cornersShape: Shape= RoundedCornerShape(topStart = 0.dp)) {
+fun DefaultTextView(text: String, fontSize: TextUnit, textColor: Color, backgroundColor: Color, modifier: Modifier, cornersShape: Shape = RoundedCornerShape(topStart = 0.dp)) {
     Box(
         modifier = modifier
             .fillMaxSize()

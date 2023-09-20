@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.newOs.quotivate.R
-import com.newOs.quotivate.composables.DefaultIconButton
-import com.newOs.quotivate.composables.DefaultText
+import com.newOs.quotivate.ui.composables.DefaultIconButton
+import com.newOs.quotivate.ui.composables.DefaultText
 import com.newOs.quotivate.quotes.domain.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black

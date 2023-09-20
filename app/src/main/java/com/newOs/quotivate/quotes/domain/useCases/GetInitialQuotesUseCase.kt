@@ -9,10 +9,6 @@ class GetInitialQuotesUseCase @Inject constructor(
     private val getSortedQuotesUseCase: GetSortedQuotesUseCase
 ) {
 
-//    private val quotesRepository = QuotesRepository()
-//    private val getSortedQuotesUseCase = GetSortedQuotesUseCase()
-
-    /* Use to deal with GetInitialQuotesUseCase as function to execute this function directly */
     suspend operator fun invoke(): List<Quote>{
         quotesRepository.loadQuotes()
         return getSortedQuotesUseCase()

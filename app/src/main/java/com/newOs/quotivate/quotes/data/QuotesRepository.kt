@@ -16,8 +16,6 @@ class QuotesRepository @Inject constructor(
     private val quotesDao: QuoteDao,
     private val apiService: QuotesApiService
 ) {
-//    private var quotesDao = QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
-//    private var apiService = RetrofitClient.api
 
     suspend fun loadQuotes() = withContext(Dispatchers.IO){
         try {

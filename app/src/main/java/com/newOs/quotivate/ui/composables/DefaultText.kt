@@ -1,4 +1,4 @@
-package com.newOs.quotivate.composables
+package com.newOs.quotivate.ui.composables
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

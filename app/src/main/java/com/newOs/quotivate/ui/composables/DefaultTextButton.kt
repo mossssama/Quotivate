@@ -1,4 +1,4 @@
-package com.newOs.quotivate.composables
+package com.newOs.quotivate.ui.composables
 
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 
+
+/** Reusable composable function */
 @Composable
 fun DefaultTextButton(text: String, modifier: Modifier, textColor: Color, backgroundColor: Color, cornersShape: Shape, onClick: ()-> Unit) {
     Button(

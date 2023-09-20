@@ -17,14 +17,12 @@ class QuotesDataModule {
 
     @Singleton
     @Provides
-    fun provideRoomDao(): QuoteDao {
-        return QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
-    }
+    fun provideRoomDao(): QuoteDao = QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
+
 
     @Singleton
     @Provides
-    fun provideApiService(): QuotesApiService{
-        return RetrofitClient.api
-    }
+    fun provideApiService(): QuotesApiService = RetrofitClient.api
+
 
 }

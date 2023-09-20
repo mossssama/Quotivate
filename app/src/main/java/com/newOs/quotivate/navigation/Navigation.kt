@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.newOs.quotivate.quotes.QuotesScreen
 import com.newOs.quotivate.screens.FavoritesScreen
 import com.newOs.quotivate.screens.MainScreen
-import com.newOs.quotivate.screens.QuotesScreen
 
 
 @Composable

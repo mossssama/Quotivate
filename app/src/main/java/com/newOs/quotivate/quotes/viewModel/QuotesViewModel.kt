@@ -1,9 +1,12 @@
-package com.newOs.quotivate.quotes
+package com.newOs.quotivate.quotes.viewModel
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newOs.quotivate.quoteList
+import com.newOs.quotivate.quotes.QuotesScreenState
+import com.newOs.quotivate.quotes.useCase.GetInitialQuotesUseCase
+import com.newOs.quotivate.quotes.useCase.ToggleFavoriteStateUseCase
 import kotlinx.coroutines.*
 
 class QuotesViewModel():ViewModel() {
@@ -18,8 +21,10 @@ class QuotesViewModel():ViewModel() {
     val state: State<QuotesScreenState>
         get() = derivedStateOf { _state }
 
-    /* Repository is responsible for handling api & db responsibilities */
-    private val repo = QuotesRepository()
+
+    /* Use Cases linking between ViewModel & Repo */
+    private val getInitialQuotesUseCase = GetInitialQuotesUseCase()
+    private val toggleFavoriteStateUseCase = ToggleFavoriteStateUseCase()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _state = _state.copy(
@@ -34,7 +39,7 @@ class QuotesViewModel():ViewModel() {
     /* Feed _state with the quotes from db */
     private fun getAllQuotes(){
         viewModelScope.launch(coroutineExceptionHandler) {
-            val receivedQuotes = repo.getQuotesFromDB()
+            val receivedQuotes = getInitialQuotesUseCase()
             _state = _state.copy(
                 quotes = receivedQuotes,
                 isLoading = false,
@@ -48,7 +53,7 @@ class QuotesViewModel():ViewModel() {
         val itemIndex = quotes.indexOfFirst { it.id == quoteId }
 
         viewModelScope.launch {
-            val updatedQuotesList = repo.toggleFavoriteQuote(quoteId,!quotes[itemIndex].isFavorite)
+            val updatedQuotesList = toggleFavoriteStateUseCase(quoteId,quotes[itemIndex].isFavorite)
             _state = _state.copy(
                 quotes=updatedQuotesList
             )

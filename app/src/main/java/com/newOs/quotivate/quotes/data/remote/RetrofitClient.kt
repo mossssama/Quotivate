@@ -1,4 +1,4 @@
-package com.newOs.quotivate.api
+package com.newOs.quotivate.quotes.data.remote
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

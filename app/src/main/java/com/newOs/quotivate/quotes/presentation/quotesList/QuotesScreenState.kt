@@ -1,6 +1,6 @@
-package com.newOs.quotivate.quotes
+package com.newOs.quotivate.quotes.presentation.quotesList
 
-import com.newOs.quotivate.room.Quote
+import com.newOs.quotivate.quotes.domain.Quote
 
 data class QuotesScreenState(
     val quotes: List<Quote>,

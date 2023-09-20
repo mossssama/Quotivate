@@ -1,4 +1,4 @@
-package com.newOs.quotivate.screens
+package com.newOs.quotivate.quotes.presentation.favoritesList
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,28 +11,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.newOs.quotivate.quotes.viewModel.QuotesViewModel
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultText
-import com.newOs.quotivate.room.Quote
+import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
 
 @Composable
 fun FavoritesScreen() {
-    val vm: QuotesViewModel = viewModel()
     LazyColumn {
-        items(vm.getAllFavorites()) {
+        items(getAllFavorites()) {
             FavoriteItem(it)
         }
     }
 }
 
+//@Composable
+//fun FavoritesScreen() {
+//    val vm: QuotesViewModel = viewModel()
+//    LazyColumn {
+//        items(vm.getAllFavorites()) {
+//            FavoriteItem(it)
+//        }
+//    }
+//}
+
 @Composable
-fun FavoriteItem(quote: Quote) {
+fun FavoriteItem(quote: LocalQuote) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),
@@ -52,8 +59,19 @@ fun FavoriteItem(quote: Quote) {
                 backgroundColor = green,
                 modifier = Modifier.weight(0.15f),
                 onClick = {
-                    /* Delete Quote from db */
+                    /* Delete LocalQuote from db */
                 })
         }
     }
 }
+
+
+val dummyOne = LocalQuote(id = 1, author = "OsOs",text = "Mohamed Osama Saleh Ahmed Abdallah Nasr Computer & Systems Engineer",isFavorite = false)
+val dummyFour = LocalQuote(id = 4,author = "GOAT",text = "Leo",isFavorite = true)
+
+val quoteList = listOf(
+    dummyOne,
+    dummyFour,
+)
+
+fun getAllFavorites() = quoteList.filter { it.isFavorite }

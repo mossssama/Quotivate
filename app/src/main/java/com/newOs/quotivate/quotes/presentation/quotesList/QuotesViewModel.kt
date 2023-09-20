@@ -1,15 +1,13 @@
-package com.newOs.quotivate.quotes.viewModel
+package com.newOs.quotivate.quotes.presentation.quotesList
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.newOs.quotivate.quoteList
-import com.newOs.quotivate.quotes.QuotesScreenState
-import com.newOs.quotivate.quotes.useCase.GetInitialQuotesUseCase
-import com.newOs.quotivate.quotes.useCase.ToggleFavoriteStateUseCase
+import com.newOs.quotivate.quotes.domain.useCases.GetInitialQuotesUseCase
+import com.newOs.quotivate.quotes.domain.useCases.ToggleFavoriteStateUseCase
 import kotlinx.coroutines.*
 
-class QuotesViewModel():ViewModel() {
+class QuotesViewModel:ViewModel() {
     private var _state by mutableStateOf(
         QuotesScreenState(
             quotes = emptyList(),
@@ -34,10 +32,10 @@ class QuotesViewModel():ViewModel() {
     }
 
     /* Feed _state with the quotes once the QuotesViewModel instance is created */
-    init{ getAllQuotes() }
+    init{ getQuotes() }
 
     /* Feed _state with the quotes from db */
-    private fun getAllQuotes(){
+    private fun getQuotes(){
         viewModelScope.launch(coroutineExceptionHandler) {
             val receivedQuotes = getInitialQuotesUseCase()
             _state = _state.copy(
@@ -48,20 +46,11 @@ class QuotesViewModel():ViewModel() {
     }
 
     /* Toggle quote favorite state value in db in case user clicked on it */
-    fun toggleFavoriteState(quoteId: Int){
-        val quotes = _state.quotes.toMutableList()
-        val itemIndex = quotes.indexOfFirst { it.id == quoteId }
-
+    fun toggleFavoriteState(quoteId: Int,oldValue: Boolean){
         viewModelScope.launch {
-            val updatedQuotesList = toggleFavoriteStateUseCase(quoteId,quotes[itemIndex].isFavorite)
-            _state = _state.copy(
-                quotes=updatedQuotesList
-            )
+            val updatedQuotesList = toggleFavoriteStateUseCase(quoteId,oldValue)
+            _state = _state.copy(quotes=updatedQuotesList)
         }
     }
 
-
-
-
-    fun getAllFavorites() = quoteList.filter { it.isFavorite }
 }

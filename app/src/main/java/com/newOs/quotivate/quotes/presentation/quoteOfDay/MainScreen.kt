@@ -1,4 +1,4 @@
-package com.newOs.quotivate.screens
+package com.newOs.quotivate.quotes.presentation.quoteOfDay
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,11 +9,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.newOs.quotivate.MainViewModel
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultTextButton
 import com.newOs.quotivate.composables.DefaultTextView
-import com.newOs.quotivate.navigation.Screen
+import com.newOs.quotivate.quotes.presentation.Screen
 import com.newOs.quotivate.ui.theme.*
 
 @Composable
@@ -28,7 +27,7 @@ fun MainScreen(navController: NavController) {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        /* Quote itself */
+        /* LocalQuote itself */
         DefaultTextView(
             text = vm.state.text,
             fontSize = 80.sp,
@@ -41,7 +40,7 @@ fun MainScreen(navController: NavController) {
             cornersShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         )
 
-        /* Quote author */
+        /* LocalQuote author */
         DefaultTextView(
             text = vm.state.author,
             fontSize = 20.sp,

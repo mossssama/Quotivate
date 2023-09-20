@@ -1,7 +1,7 @@
-package com.newOs.quotivate.quotes.useCase
+package com.newOs.quotivate.quotes.domain.useCases
 
-import com.newOs.quotivate.quotes.repo.QuotesRepository
-import com.newOs.quotivate.room.Quote
+import com.newOs.quotivate.quotes.data.QuotesRepository
+import com.newOs.quotivate.quotes.domain.Quote
 
 class GetInitialQuotesUseCase {
 

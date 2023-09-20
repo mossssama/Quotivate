@@ -1,18 +1,18 @@
-package com.newOs.quotivate.api
+package com.newOs.quotivate.quotes.data.remote
 
-import com.newOs.quotivate.room.Quote
+import com.newOs.quotivate.quotes.data.local.LocalQuote
 import retrofit2.http.*
 
 interface QuotesApiService {
     @GET("randomQuote")
-    suspend fun getRandomQuote(): SingleQuote
+    suspend fun getRandomQuote(): RemoteQuote
 
     @GET("allQuotes")
-    suspend fun getAllQuotes(): List<SingleQuote>
+    suspend fun getQuotes(): List<RemoteQuote>
 
     @GET("/paginatedQuotes")
     suspend fun getQuotesPage(
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
-    ): List<Quote>
+    ): List<RemoteQuote>
 }

@@ -1,11 +1,11 @@
-package com.newOs.quotivate.room
+package com.newOs.quotivate.quotes.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Quote(
+data class LocalQuote(
     val author: String,
     val text: String,
 
@@ -13,5 +13,5 @@ data class Quote(
     val isFavorite: Boolean = false,
 
     @ColumnInfo("id")
-    @PrimaryKey(autoGenerate = true) val id : Int = 0
+    @PrimaryKey(autoGenerate = true) val id : Int
 )

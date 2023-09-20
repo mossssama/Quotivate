@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes
+package com.newOs.quotivate.quotes.presentation.quotesList
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,39 +11,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.newOs.quotivate.quotes.viewModel.QuotesViewModel
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composables.DefaultIconButton
 import com.newOs.quotivate.composables.DefaultText
-import com.newOs.quotivate.room.Quote
+import com.newOs.quotivate.quotes.domain.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
 
 @Composable
-fun QuotesScreen() {
-    val vm: QuotesViewModel = viewModel()
-    val state = vm.state.value
-
+fun QuotesScreen(state: QuotesScreenState,onFavoriteIconClick:(id:Int,oldValue:Boolean)-> Unit) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
         LazyColumn {
             items(state.quotes) { quote ->
-                QuoteItem(quote){ vm.toggleFavoriteState(it) }
+                QuoteItem(
+                    quote = quote,
+                    onFavoriteIconClick = { id,oldValue ->
+                        onFavoriteIconClick(id,oldValue)
+                    }
+                )
             }
         }
+    }
         if(state.isLoading) CircularProgressIndicator()
         state.error?.let { Text(it) }
-    }
-
-
 }
 
 @Composable
-fun QuoteItem(quote: Quote, onClick: (Int)->Unit) {
+fun QuoteItem(quote: Quote, onFavoriteIconClick: (Int,Boolean)->Unit) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),
@@ -62,7 +60,7 @@ fun QuoteItem(quote: Quote, onClick: (Int)->Unit) {
                 iconColor = black,
                 backgroundColor = green,
                 modifier = Modifier.weight(0.15f),
-                onClick = { onClick(quote.id) }
+                onClick = { onFavoriteIconClick(quote.id,quote.isFavorite) }
             )
 
         }

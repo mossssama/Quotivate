@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,11 +24,22 @@ import com.newOs.quotivate.ui.theme.green
 @Composable
 fun QuotesScreen() {
     val vm: QuotesViewModel = viewModel()
-    LazyColumn {
-        items(vm.state) { quote ->
-            QuoteItem(quote){ vm.toggleFavoriteState(it) }
+    val state = vm.state
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        LazyColumn {
+            items(state.quotes) { quote ->
+                QuoteItem(quote){ vm.toggleFavoriteState(it) }
+            }
         }
+        if(state.isLoading) CircularProgressIndicator()
+        state.error?.let { Text(it) }
     }
+
+
 }
 
 @Composable

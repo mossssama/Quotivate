@@ -15,19 +15,31 @@ import kotlinx.coroutines.*
 import kotlin.Exception
 
 class QuotesViewModel():ViewModel() {
-    var state by mutableStateOf(emptyList<Quote>())
+    var state by mutableStateOf(
+        QuotesScreenState(
+            quotes = emptyList(),
+            isLoading = true
+        )
+    )
 
     private var quotesDao = QuoteDatabase.getInstance(QuotesApplication.getApplicationContext())
 
-    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
-        /* Execute any code we want in case no internet connection or server is failed*/
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        state = state.copy(
+            isLoading = false,
+            error = throwable.message
+        )
     }
 
     init{ getAllQuotes() }
 
     private fun getAllQuotes(){
         viewModelScope.launch(coroutineExceptionHandler) {
-            state = getQuotesFromAPI()
+            val receivedQuotes = getQuotesFromAPI()
+            state = state.copy(
+                quotes = receivedQuotes,
+                isLoading = false,
+            )
         }
     }
 
@@ -50,12 +62,14 @@ class QuotesViewModel():ViewModel() {
     }
 
     fun toggleFavoriteState(quoteId: Int){
-        val quotes = state.toMutableList()
+        val quotes = state.quotes.toMutableList()
         val itemIndex = quotes.indexOfFirst { it.id == quoteId }
 
         viewModelScope.launch {
             val updatedQuotesList = toggleFavoriteQuote(quoteId,!quotes[itemIndex].isFavorite)
-            state = updatedQuotesList
+            state = state.copy(
+                quotes=updatedQuotesList
+            )
         }
 
     }

@@ -9,7 +9,7 @@ object RetrofitClient {
 
     private val retrofit: Retrofit by lazy {
         val client = OkHttpClient.Builder()
-            .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .connectTimeout(50, java.util.concurrent.TimeUnit.SECONDS)
             .build()
 
         Retrofit.Builder()

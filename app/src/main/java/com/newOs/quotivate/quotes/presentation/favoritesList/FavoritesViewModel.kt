@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newOs.quotivate.quotes.domain.useCases.favorites.GetInitialFavoritesUseCase
 import com.newOs.quotivate.quotes.domain.useCases.favorites.ToggleFavoriteStateUseCase
-import com.newOs.quotivate.quotes.domain.useCases.quotes.ToggleQuoteStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject

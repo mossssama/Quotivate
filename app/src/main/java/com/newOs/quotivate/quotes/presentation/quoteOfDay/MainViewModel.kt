@@ -17,14 +17,14 @@ class MainViewModel @Inject constructor(
     private val toggleRandomQuoteStateUseCase: ToggleRandomQuoteStateUseCase
 ): ViewModel() {
     private var _state by mutableStateOf(
-        QuoteScreenState(
+        MainScreenState(
             quote = Quote("","",false),
             isLoading = true
         )
     )
 
     /* To Prevent From updating state from UI layer (QuotesScreen) */
-    val state: State<QuoteScreenState>
+    val state: State<MainScreenState>
         get() = derivedStateOf { _state }
 
 

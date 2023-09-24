@@ -33,8 +33,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
+
         composable(route = Screen.MainScreen.route){
             val vm: MainViewModel = hiltViewModel()
             MainScreen(
@@ -44,6 +44,7 @@ fun Navigation(){
                 onRefresh = { vm.getRandomQuote() }
             )
         }
+
         composable(route = Screen.QuotesScreen.route){
             val vm : QuotesViewModel = hiltViewModel()
             QuotesScreen(
@@ -51,6 +52,7 @@ fun Navigation(){
                 onFavoriteIconClick = { id,oldValue -> vm.toggleFavoriteState(id,oldValue) }
             )
         }
+
         composable(route = Screen.FavoritesScreen.route){
             val vm: FavoritesViewModel = hiltViewModel()
             FavoritesScreen(

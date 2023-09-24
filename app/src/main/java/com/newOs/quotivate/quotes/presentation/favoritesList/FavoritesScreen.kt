@@ -1,8 +1,6 @@
 package com.newOs.quotivate.quotes.presentation.favoritesList
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -16,7 +14,6 @@ import androidx.compose.ui.unit.sp
 import com.newOs.quotivate.R
 import com.newOs.quotivate.ui.composables.DefaultIconButton
 import com.newOs.quotivate.ui.composables.DefaultText
-import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.quotes.domain.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
@@ -35,7 +32,10 @@ fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, ol
         }
     }
 
-    if(state.isLoading) CircularProgressIndicator()
+    if (state.isLoading) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+        { CircularProgressIndicator() }
+    }
     state.error?.let { Text(it) }
 }
 

@@ -1,6 +1,6 @@
 package com.newOs.quotivate.quotes.domain.useCases.quotes
 
-import com.newOs.quotivate.quotes.data.QuotesRepository
+import com.newOs.quotivate.quotes.data.repo.QuotesRepository
 import com.newOs.quotivate.quotes.domain.Quote
 import javax.inject.Inject
 
@@ -10,8 +10,7 @@ class ToggleQuoteStateUseCase @Inject constructor(
 ){
 
     suspend operator fun invoke(id: Int,oldState: Boolean): List<Quote>{
-        val newState = oldState.not()
-        quotesRepository.toggleQuote(id,newState)
+        quotesRepository.updateQuotes(id,oldState.not())
         return getSortedQuotesUseCase()
     }
 

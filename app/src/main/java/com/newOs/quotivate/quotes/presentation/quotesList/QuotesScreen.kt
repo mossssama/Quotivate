@@ -36,8 +36,12 @@ fun QuotesScreen(state: QuotesScreenState,onFavoriteIconClick:(id:Int,oldValue:B
             }
         }
     }
-        if(state.isLoading) CircularProgressIndicator()
-        state.error?.let { Text(it) }
+
+    if (state.isLoading) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+        { CircularProgressIndicator() }
+    }
+    state.error?.let { Text(it) }
 }
 
 @Composable

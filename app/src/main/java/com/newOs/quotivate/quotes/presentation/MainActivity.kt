@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.newOs.quotivate.quotes.presentation.favoritesList.FavoritesScreen
 import com.newOs.quotivate.quotes.presentation.favoritesList.FavoritesViewModel
 import com.newOs.quotivate.quotes.presentation.quoteOfDay.MainScreen
+import com.newOs.quotivate.quotes.presentation.quoteOfDay.MainViewModel
 import com.newOs.quotivate.quotes.presentation.quotesList.QuotesScreen
 import com.newOs.quotivate.quotes.presentation.quotesList.QuotesViewModel
 import com.newOs.quotivate.ui.theme.*
@@ -35,24 +36,26 @@ fun Navigation(){
 
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
         composable(route = Screen.MainScreen.route){
-            MainScreen(navController = navController)
+            val vm: MainViewModel = hiltViewModel()
+            MainScreen(
+                navController = navController,
+                state = vm.state.value,
+                onFavoriteIconClick = { id -> vm.toggleFavoriteState(id) },
+                onRefresh = { vm.getRandomQuote() }
+            )
         }
         composable(route = Screen.QuotesScreen.route){
             val vm : QuotesViewModel = hiltViewModel()
             QuotesScreen(
                 state = vm.state.value,
-                onFavoriteIconClick = { id,oldValue ->
-                    vm.toggleFavoriteState(id,oldValue)
-                }
+                onFavoriteIconClick = { id,oldValue -> vm.toggleFavoriteState(id,oldValue) }
             )
         }
         composable(route = Screen.FavoritesScreen.route){
             val vm: FavoritesViewModel = hiltViewModel()
             FavoritesScreen(
                 state = vm.state.value,
-                onFavoriteIconClick = { id,oldValue ->
-                    vm.toggleFavoriteState(id,oldValue)
-                }
+                onFavoriteIconClick = { id,oldValue -> vm.toggleFavoriteState(id,oldValue) }
             )
         }
 

@@ -1,33 +1,56 @@
 package com.newOs.quotivate.quotes.presentation.quoteOfDay
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.newOs.quotivate.quotes.data.remote.RemoteQuote
-import com.newOs.quotivate.quotes.data.remote.RetrofitClient
+import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.useCases.GetRandomQuoteUseCase
+import com.newOs.quotivate.quotes.domain.useCases.ToggleRandomQuoteStateUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MainViewModel: ViewModel() {
-    var state by mutableStateOf(RemoteQuote("",""))
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val getRandomQuoteUseCase: GetRandomQuoteUseCase,
+    private val toggleRandomQuoteStateUseCase: ToggleRandomQuoteStateUseCase
+): ViewModel() {
+    private var _state by mutableStateOf(
+        QuoteScreenState(
+            quote = Quote("","",false),
+            isLoading = true
+        )
+    )
 
-    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
-        /* Execute any code we want in case no internet connection or server is failed*/
+    /* To Prevent From updating state from UI layer (QuotesScreen) */
+    val state: State<QuoteScreenState>
+        get() = derivedStateOf { _state }
+
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        _state = _state.copy(
+            isLoading = false,
+            error = throwable.message
+        )
     }
 
     init{ getRandomQuote() }
 
-    internal fun getRandomQuote(){
+    fun getRandomQuote(){
         viewModelScope.launch(coroutineExceptionHandler) {
-            state = getRandomQuoteFromAPI()
+            val receivedQuote = getRandomQuoteUseCase()
+            _state = _state.copy(
+                quote = receivedQuote,
+                isLoading = false,
+            )
         }
     }
 
-    private suspend fun getRandomQuoteFromAPI() = withContext(Dispatchers.IO){ RetrofitClient.api.getRandomQuote() }
-
+    fun toggleFavoriteState(id: Int) {
+        viewModelScope.launch {
+            toggleRandomQuoteStateUseCase(id)
+        }
+    }
 
 }

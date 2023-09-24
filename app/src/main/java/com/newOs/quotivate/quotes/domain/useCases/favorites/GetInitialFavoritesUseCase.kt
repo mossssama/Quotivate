@@ -7,8 +7,7 @@ class GetInitialFavoritesUseCase @Inject constructor(
     private val getSortedFavoritesUseCase: GetSortedFavoritesUseCase
 ) {
 
-    suspend operator fun invoke(): List<Quote>{
-        return getSortedFavoritesUseCase()
-    }
+    suspend operator fun invoke(): List<Quote> = getSortedFavoritesUseCase()
+
 
 }

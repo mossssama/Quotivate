@@ -8,8 +8,6 @@ class GetSortedQuotesUseCase @Inject constructor(
     private val quotesRepository: QuotesRepository
 ){
 
-    suspend operator fun invoke(): List<Quote>{
-        return quotesRepository.getQuotes().sortedBy { it.text }
-    }
+    suspend operator fun invoke(): List<Quote> = quotesRepository.getQuotes().sortedBy { it.text }
 
 }

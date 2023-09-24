@@ -9,7 +9,7 @@ interface QuotesApiService {
     @GET("allQuotes")
     suspend fun getQuotes(): List<RemoteQuote>
 
-    @GET("/paginatedQuotes")
+    @GET("/quotesPage")
     suspend fun getQuotesPage(
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int

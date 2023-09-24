@@ -8,8 +8,6 @@ class GetSortedFavoritesUseCase @Inject constructor(
     private val quotesRepository: QuotesRepository
 ){
 
-    suspend operator fun invoke(): List<Quote>{
-        return quotesRepository.getFavorites().sortedBy { it.text }
-    }
+    suspend operator fun invoke(): List<Quote> = quotesRepository.getFavorites().sortedBy { it.text }
 
 }

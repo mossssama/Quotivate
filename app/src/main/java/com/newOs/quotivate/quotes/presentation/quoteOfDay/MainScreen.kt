@@ -16,8 +16,7 @@ import com.newOs.quotivate.ui.composables.DefaultTextView
 import com.newOs.quotivate.ui.theme.*
 
 @Composable
-fun MainScreen(navController: NavController) {
-    val vm: MainViewModel = viewModel()
+fun MainScreen(navController: NavController,state: QuoteScreenState,onRefresh:()-> Unit,onFavoriteIconClick:(id:Int)-> Unit) {
 
     Column(
         modifier = Modifier
@@ -29,7 +28,7 @@ fun MainScreen(navController: NavController) {
 
         /* LocalQuote itself */
         DefaultTextView(
-            text = vm.state.text,
+            text = state.quote.text,
             fontSize = 80.sp,
             textColor = black,
             backgroundColor = baby_blue,
@@ -42,7 +41,7 @@ fun MainScreen(navController: NavController) {
 
         /* LocalQuote author */
         DefaultTextView(
-            text = vm.state.author,
+            text = state.quote.author,
             fontSize = 20.sp,
             textColor = black,
             backgroundColor = baby_blue,
@@ -70,7 +69,7 @@ fun MainScreen(navController: NavController) {
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                onClick = { vm.getRandomQuote() }
+                onClick = { onRefresh() }
             )
 
             DefaultIconButton(
@@ -82,7 +81,7 @@ fun MainScreen(navController: NavController) {
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                onClick = {}
+                onClick = { onFavoriteIconClick(state.quote.id)}
             )
 
             DefaultIconButton(

@@ -39,6 +39,10 @@ class QuotesRepository @Inject constructor(
         }
     }
 
+    suspend fun getRandomQuote(): Quote = withContext(Dispatchers.IO){
+        return@withContext convertToQuote(apiService.getRandomQuote())
+    }
+
     private suspend fun updateLocalDatabase() {
         val quotes = apiService.getQuotes()
         val favoriteQuotesList = quotesDao.getFavoriteQuotes()
@@ -57,11 +61,22 @@ class QuotesRepository @Inject constructor(
     }
 
     private fun convertToLocalQuoteList(singleQuotes: List<RemoteQuote>): List<LocalQuote> {
-        var idCounter = 1
         return singleQuotes.map { singleQuote ->
-            val quote = LocalQuote(id = idCounter, author = singleQuote.author, text = singleQuote.text)
-            idCounter++
+            val quote = LocalQuote(id = singleQuote.id, author = singleQuote.author, text = singleQuote.text)
             quote
         }
     }
+
+    private fun convertToQuote(remoteQuote: RemoteQuote): Quote {
+        return Quote(
+            author = remoteQuote.author,
+            text = remoteQuote.text,
+            id = remoteQuote.id
+        )
+    }
+
+    suspend fun updateQuoteState(id: Int) {
+        quotesDao.updateQuote(LocalQuoteFavoriteState(isFavorite = true,id = id))
+    }
+
 }

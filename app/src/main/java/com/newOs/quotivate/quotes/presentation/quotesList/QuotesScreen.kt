@@ -2,16 +2,17 @@ package com.newOs.quotivate.quotes.presentation.quotesList
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
 import com.newOs.quotivate.R
+import com.newOs.quotivate.quotes.data.Converters.Companion.convertRemoteQuoteToQuote
+import com.newOs.quotivate.quotes.data.remote.RemoteQuote
 import com.newOs.quotivate.ui.composables.DefaultIconButton
 import com.newOs.quotivate.ui.composables.DefaultText
 import com.newOs.quotivate.quotes.domain.Quote
@@ -20,15 +21,16 @@ import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
 
 @Composable
-fun QuotesScreen(state: QuotesScreenState,onFavoriteIconClick:(id:Int,oldValue:Boolean)-> Unit) {
+fun QuotesScreen(quotes: LazyPagingItems<RemoteQuote>, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
         LazyColumn {
-            items(state.quotes) { quote ->
+            items(quotes.itemCount) { index ->
                 QuoteItem(
-                    quote = quote,
+                    quote = convertRemoteQuoteToQuote(quotes[index]!!),
                     onFavoriteIconClick = { id,oldValue ->
                         onFavoriteIconClick(id,oldValue)
                     }
@@ -37,11 +39,6 @@ fun QuotesScreen(state: QuotesScreenState,onFavoriteIconClick:(id:Int,oldValue:B
         }
     }
 
-    if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-        { CircularProgressIndicator() }
-    }
-    state.error?.let { Text(it) }
 }
 
 @Composable

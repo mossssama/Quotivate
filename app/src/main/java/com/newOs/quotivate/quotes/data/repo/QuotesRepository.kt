@@ -1,9 +1,11 @@
 package com.newOs.quotivate.quotes.data.repo
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import com.newOs.quotivate.quotes.data.Converters.Companion.buildLocalQuoteList
 import com.newOs.quotivate.quotes.data.Converters.Companion.convertLocalQuoteToQuote
 import com.newOs.quotivate.quotes.data.Converters.Companion.convertRemoteQuoteToQuote
-import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.quotes.data.local.LocalQuoteFavoriteState
 import com.newOs.quotivate.quotes.data.local.QuoteDao
 import com.newOs.quotivate.quotes.data.remote.QuotesApiService
@@ -33,6 +35,8 @@ class QuotesRepository @Inject constructor(
     suspend fun getFavorites(): List<Quote> = withContext(Dispatchers.IO){ quotesDao.getFavorites().map { convertLocalQuoteToQuote(it) } }
 
     suspend fun getQuotes(): List<Quote> = withContext(Dispatchers.IO){ quotesDao.getQuotes().map { convertLocalQuoteToQuote(it) } }
+
+    fun getQuotesPagingSource(): PagingSource<Int, RemoteQuote> = QuotesPagingSource(apiService)
 
     private suspend fun updateLocalDatabase() {
         val quotes = apiService.getQuotes()

@@ -3,7 +3,9 @@ package com.newOs.quotivate.quotes.presentation.quotesList
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.newOs.quotivate.quotes.domain.useCases.quotes.GetInitialQuotesUseCase
+import androidx.paging.*
+import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.useCases.LoadPagedQuotesUseCase
 import com.newOs.quotivate.quotes.domain.useCases.quotes.ToggleQuoteStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -11,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuotesViewModel @Inject constructor(
-    private val getInitialQuotesUseCase: GetInitialQuotesUseCase,
-    private val toggleFavoriteStateUseCase: ToggleQuoteStateUseCase
+    private val toggleFavoriteStateUseCase: ToggleQuoteStateUseCase,
+    private val loadPagedQuotesUseCase: LoadPagedQuotesUseCase
 ):ViewModel() {
     private var _state by mutableStateOf(
         QuotesScreenState(
@@ -21,10 +23,7 @@ class QuotesViewModel @Inject constructor(
         )
     )
 
-    /* To Prevent From updating state from UI layer (QuotesScreen) */
-    val state: State<QuotesScreenState>
-        get() = derivedStateOf { _state }
-
+    val state = loadPagedQuotesUseCase()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _state = _state.copy(
@@ -33,25 +32,27 @@ class QuotesViewModel @Inject constructor(
         )
     }
 
-    /* Feed _state with the quotes once the QuotesViewModel instance is created */
     init{ getQuotes() }
 
-    /* Feed _state with the quotes from db */
-    private fun getQuotes(){
-        viewModelScope.launch(coroutineExceptionHandler) {
-            val receivedQuotes = getInitialQuotesUseCase()
-            _state = _state.copy(
-                quotes = receivedQuotes,
-                isLoading = false,
-            )
-        }
-    }
 
-    /* Toggle quote favorite state value in db in case user clicked on it */
     fun toggleFavoriteState(quoteId: Int,oldValue: Boolean){
         viewModelScope.launch {
             val updatedQuotesList = toggleFavoriteStateUseCase(quoteId,oldValue)
             _state = _state.copy(quotes=updatedQuotesList)
+        }
+    }
+
+
+    private fun getQuotes() {
+        viewModelScope.launch(coroutineExceptionHandler) {
+            val quotes = mutableListOf<Quote>()
+            loadPagedQuotesUseCase().collect { pagingData ->
+                pagingData.map { Quote(text=it.text, author = it.author, id = it.id, isFavorite = false) }
+                _state = _state.copy(
+                    quotes = quotes,
+                    isLoading = false,
+                )
+            }
         }
     }
 

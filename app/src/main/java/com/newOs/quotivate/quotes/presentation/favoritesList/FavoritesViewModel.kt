@@ -1,28 +1,29 @@
-package com.newOs.quotivate.quotes.presentation.quotesList
+package com.newOs.quotivate.quotes.presentation.favoritesList
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.newOs.quotivate.quotes.domain.useCases.quotes.GetInitialQuotesUseCase
+import com.newOs.quotivate.quotes.domain.useCases.favorites.GetInitialFavoritesUseCase
+import com.newOs.quotivate.quotes.domain.useCases.favorites.ToggleFavoriteStateUseCase
 import com.newOs.quotivate.quotes.domain.useCases.quotes.ToggleQuoteStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class QuotesViewModel @Inject constructor(
-    private val getInitialQuotesUseCase: GetInitialQuotesUseCase,
-    private val toggleFavoriteStateUseCase: ToggleQuoteStateUseCase
+class FavoritesViewModel @Inject constructor(
+    private val getInitialFavoritesUseCase: GetInitialFavoritesUseCase,
+    private val toggleFavoriteStateUseCase: ToggleFavoriteStateUseCase
 ):ViewModel() {
     private var _state by mutableStateOf(
-        QuotesScreenState(
+        FavoritesScreenState(
             quotes = emptyList(),
             isLoading = true
         )
     )
 
     /* To Prevent From updating state from UI layer (QuotesScreen) */
-    val state: State<QuotesScreenState>
+    val state: State<FavoritesScreenState>
         get() = derivedStateOf { _state }
 
 
@@ -34,12 +35,12 @@ class QuotesViewModel @Inject constructor(
     }
 
     /* Feed _state with the quotes once the QuotesViewModel instance is created */
-    init{ getQuotes() }
+    init{ getFavorites() }
 
     /* Feed _state with the quotes from db */
-    private fun getQuotes(){
+    private fun getFavorites(){
         viewModelScope.launch(coroutineExceptionHandler) {
-            val receivedQuotes = getInitialQuotesUseCase()
+            val receivedQuotes = getInitialFavoritesUseCase()
             _state = _state.copy(
                 quotes = receivedQuotes,
                 isLoading = false,

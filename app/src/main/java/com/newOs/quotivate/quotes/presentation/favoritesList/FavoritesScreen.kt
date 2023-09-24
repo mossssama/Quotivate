@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,31 +17,30 @@ import com.newOs.quotivate.R
 import com.newOs.quotivate.ui.composables.DefaultIconButton
 import com.newOs.quotivate.ui.composables.DefaultText
 import com.newOs.quotivate.quotes.data.local.LocalQuote
+import com.newOs.quotivate.quotes.domain.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
 
 @Composable
-fun FavoritesScreen() {
+fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
     LazyColumn {
-        items(getAllFavorites()) {
-            FavoriteItem(it)
+        items(state.quotes) { quote ->
+            FavoriteItem(
+                quote = quote,
+                onFavoriteIconClick = { id,oldValue ->
+                    onFavoriteIconClick(id,oldValue)
+                }
+            )
         }
     }
+
+    if(state.isLoading) CircularProgressIndicator()
+    state.error?.let { Text(it) }
 }
 
-//@Composable
-//fun FavoritesScreen() {
-//    val vm: QuotesViewModel = viewModel()
-//    LazyColumn {
-//        items(vm.getAllFavorites()) {
-//            FavoriteItem(it)
-//        }
-//    }
-//}
-
 @Composable
-fun FavoriteItem(quote: LocalQuote) {
+fun FavoriteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),
@@ -58,20 +59,8 @@ fun FavoriteItem(quote: LocalQuote) {
                 iconColor = black,
                 backgroundColor = green,
                 modifier = Modifier.weight(0.15f),
-                onClick = {
-                    /* Delete LocalQuote from db */
-                })
+                onClick = { onFavoriteIconClick(quote.id,quote.isFavorite) }
+            )
         }
     }
 }
-
-
-val dummyOne = LocalQuote(id = 1, author = "OsOs",text = "Mohamed Osama Saleh Ahmed Abdallah Computer & Systems Engineer",isFavorite = false)
-val dummyFour = LocalQuote(id = 4,author = "GOAT",text = "Leo",isFavorite = true)
-
-val quoteList = listOf(
-    dummyOne,
-    dummyFour,
-)
-
-fun getAllFavorites() = quoteList.filter { it.isFavorite }

@@ -33,6 +33,11 @@ class QuotesRepository @Inject constructor(
         }
     }
 
+    suspend fun getFavorites(): List<Quote> = withContext(Dispatchers.IO){
+        return@withContext quotesDao.getFavoriteQuotes().map {
+            Quote(author = it.author,text = it.text, isFavorite = it.isFavorite, id = it.id)
+        }
+    }
 
     private suspend fun updateLocalDatabase() {
         val quotes = apiService.getQuotes()
@@ -41,9 +46,14 @@ class QuotesRepository @Inject constructor(
         quotesDao.updateAll(favoriteQuotesList.map { LocalQuoteFavoriteState(id=it.id, isFavorite = true) })
     }
 
-    suspend fun toggleFavoriteQuote(quoteId:Int, newFavoriteState: Boolean) = withContext(Dispatchers.IO){
+    suspend fun toggleQuote(quoteId:Int, newFavoriteState: Boolean) = withContext(Dispatchers.IO){
         quotesDao.updateQuote(LocalQuoteFavoriteState(id = quoteId, isFavorite = newFavoriteState))
         return@withContext quotesDao.getAll()
+    }
+
+    suspend fun toggleFavorite(quoteId:Int, newFavoriteState: Boolean) = withContext(Dispatchers.IO){
+        quotesDao.updateQuote(LocalQuoteFavoriteState(id = quoteId, isFavorite = newFavoriteState))
+        return@withContext quotesDao.getFavoriteQuotes()
     }
 
     private fun convertToLocalQuoteList(singleQuotes: List<RemoteQuote>): List<LocalQuote> {

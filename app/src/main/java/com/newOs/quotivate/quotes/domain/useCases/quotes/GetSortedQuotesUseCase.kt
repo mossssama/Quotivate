@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.domain.useCases
+package com.newOs.quotivate.quotes.domain.useCases.quotes
 
 import com.newOs.quotivate.quotes.data.QuotesRepository
 import com.newOs.quotivate.quotes.domain.Quote

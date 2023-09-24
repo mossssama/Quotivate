@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.newOs.quotivate.quotes.presentation.favoritesList.FavoritesScreen
+import com.newOs.quotivate.quotes.presentation.favoritesList.FavoritesViewModel
 import com.newOs.quotivate.quotes.presentation.quoteOfDay.MainScreen
 import com.newOs.quotivate.quotes.presentation.quotesList.QuotesScreen
 import com.newOs.quotivate.quotes.presentation.quotesList.QuotesViewModel
@@ -46,7 +47,13 @@ fun Navigation(){
             )
         }
         composable(route = Screen.FavoritesScreen.route){
-            FavoritesScreen()
+            val vm: FavoritesViewModel = hiltViewModel()
+            FavoritesScreen(
+                state = vm.state.value,
+                onFavoriteIconClick = { id,oldValue ->
+                    vm.toggleFavoriteState(id,oldValue)
+                }
+            )
         }
 
     }

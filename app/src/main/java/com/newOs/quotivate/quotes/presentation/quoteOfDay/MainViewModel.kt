@@ -4,8 +4,8 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.newOs.quotivate.quotes.domain.Quote
-import com.newOs.quotivate.quotes.domain.useCases.GetRandomQuoteUseCase
-import com.newOs.quotivate.quotes.domain.useCases.ToggleRandomQuoteStateUseCase
+import com.newOs.quotivate.quotes.domain.useCases.main.GetRandomQuoteUseCase
+import com.newOs.quotivate.quotes.domain.useCases.main.ToggleRandomQuoteStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch

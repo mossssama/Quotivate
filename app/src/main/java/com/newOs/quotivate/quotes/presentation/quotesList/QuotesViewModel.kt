@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.newOs.quotivate.quotes.domain.Quote
-import com.newOs.quotivate.quotes.domain.useCases.LoadPagedQuotesUseCase
+import com.newOs.quotivate.quotes.domain.useCases.quotes.LoadPagedQuotesUseCase
 import com.newOs.quotivate.quotes.domain.useCases.quotes.ToggleQuoteStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*

@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.domain.useCases
+package com.newOs.quotivate.quotes.domain.useCases.main
 
 import com.newOs.quotivate.quotes.data.repo.QuotesRepository
 import javax.inject.Inject

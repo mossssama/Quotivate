@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.domain.useCases
+package com.newOs.quotivate.quotes.domain.useCases.quotes
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

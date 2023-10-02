@@ -8,29 +8,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.paging.compose.LazyPagingItems
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.newOs.quotivate.R
-import com.newOs.quotivate.quotes.data.Converters.Companion.convertRemoteQuoteToQuote
-import com.newOs.quotivate.quotes.data.remote.RemoteQuote
+import com.newOs.quotivate.quotes.data.Converters.Companion.convertLocalQuoteToQuote
+import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.ui.composables.DefaultIconButton
 import com.newOs.quotivate.ui.composables.DefaultText
 import com.newOs.quotivate.quotes.domain.entity.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
+import kotlinx.coroutines.flow.Flow
 
 // Displays a list of quotes using LazyColumn and QuoteItem components.
 @Composable
-fun QuotesScreen(quotes: LazyPagingItems<RemoteQuote>, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
+fun QuotesScreen(quotes: Flow<PagingData<LocalQuote>>, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
+
+    val lazyPagingItems = quotes.collectAsLazyPagingItems()
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
         LazyColumn {
-            items(quotes.itemCount) { index ->
+            items(lazyPagingItems.itemCount) { index ->
                 QuoteItem(
-                    quote = convertRemoteQuoteToQuote(quotes[index]!!),
+                    quote = convertLocalQuoteToQuote(lazyPagingItems[index]!!),
                     onFavoriteIconClick = { id,oldValue ->
                         onFavoriteIconClick(id,oldValue)
                     }

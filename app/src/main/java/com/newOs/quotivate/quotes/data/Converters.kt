@@ -13,5 +13,25 @@ class Converters {
         fun convertLocalQuoteToQuote(localQuote: LocalQuote): Quote = Quote(localQuote.author,localQuote.text,localQuote.isFavorite,localQuote.id)
 
         private fun convertRemoteQuoteToLocalQuote(remoteQuote: RemoteQuote): LocalQuote = LocalQuote(author = remoteQuote.author, text = remoteQuote.text, id = remoteQuote.id)
+
+        fun convertRemoteQuotesToLocalQuotes(remoteQuotes: List<RemoteQuote>): List<LocalQuote> {
+            return remoteQuotes.map { remoteQuote ->
+                LocalQuote(
+                    author = remoteQuote.author,
+                    text = remoteQuote.text,
+                    id = remoteQuote.id
+                )
+            }
+        }
+
+        fun getPageNumber(quoteId: Int,pageSize: Int): Int = (quoteId - 1) / pageSize + 1
+
+        fun getQuoteIDsForPage(pageNumber: Int, pageSize: Int): List<Int> {
+            val startId = (pageNumber - 1) * pageSize + 1
+            val endId = startId + pageSize - 1
+
+            return (startId..endId).toList()
+        }
+
     }
 }

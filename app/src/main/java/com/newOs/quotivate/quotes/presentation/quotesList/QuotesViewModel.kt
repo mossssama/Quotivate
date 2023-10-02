@@ -48,8 +48,8 @@ class QuotesViewModel @Inject constructor(
     private fun getQuotes() {
         viewModelScope.launch(coroutineExceptionHandler) {
             val quotes = mutableListOf<Quote>()
-            loadPagedQuotesUseCase().collect { pagingData ->
-                pagingData.map { Quote(text=it.text, author = it.author, id = it.id, isFavorite = false) }
+            loadPagedQuotesUseCase().flow.collect { pagingData ->
+                pagingData.map { Quote(text = it.text, author = it.author, id = it.id, isFavorite = false) }
                 _state = _state.copy(
                     quotes = quotes,
                     isLoading = false,

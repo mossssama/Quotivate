@@ -21,7 +21,7 @@ abstract class QuoteDatabase: RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 QuoteDatabase::class.java,
-                "quotes_database"
+                DATABASE_NAME
             ).fallbackToDestructiveMigration().build()
 
         fun getInstance(context: Context): QuoteDao {
@@ -32,6 +32,8 @@ abstract class QuoteDatabase: RoomDatabase() {
                 return daoInstance as QuoteDao
             }
         }
+
+        private const val DATABASE_NAME = "quotes_database"
 
     }
 

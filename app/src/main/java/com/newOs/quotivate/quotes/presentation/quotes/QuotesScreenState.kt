@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.quotesList
+package com.newOs.quotivate.quotes.presentation.quotes
 
 import com.newOs.quotivate.quotes.domain.entity.Quote
 

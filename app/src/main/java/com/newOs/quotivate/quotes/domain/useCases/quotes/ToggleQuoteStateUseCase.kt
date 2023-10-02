@@ -6,12 +6,11 @@ import javax.inject.Inject
 
 class ToggleQuoteStateUseCase @Inject constructor(
     private val quotesRepository: QuotesRepository,
-    private val getSortedQuotesUseCase: GetSortedQuotesUseCase,
 ){
 
     suspend operator fun invoke(id: Int,oldState: Boolean): List<Quote>{
         quotesRepository.updateQuotes(id,oldState.not())
-        return getSortedQuotesUseCase()
+        return quotesRepository.getQuotes()
     }
 
 }

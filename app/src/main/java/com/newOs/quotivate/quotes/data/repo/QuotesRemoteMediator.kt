@@ -4,20 +4,22 @@ import android.net.http.HttpException
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.paging.*
-import com.newOs.quotivate.quotes.data.Constants.Companion.PAGE_SIZE
+import com.newOs.quotivate.quotes.data.repo.Constants.Companion.PAGE_SIZE
 import com.newOs.quotivate.quotes.data.Converters.Companion.convertRemoteQuotesToLocalQuotes
 import com.newOs.quotivate.quotes.data.Converters.Companion.getPageNumber
 import com.newOs.quotivate.quotes.data.local.LocalQuote
+import com.newOs.quotivate.quotes.data.local.LocalQuoteFavoriteState
 import com.newOs.quotivate.quotes.data.local.QuoteDao
 import com.newOs.quotivate.quotes.data.remote.QuotesApiService
+import com.newOs.quotivate.quotes.data.remote.RemoteQuote
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class QuotesRemoteMediator(
-    private val dao: QuoteDao,
-    private val networkService: QuotesApiService
+    private val quoteDao: QuoteDao,
+    private val quotesApiService: QuotesApiService
 ) : RemoteMediator<Int, LocalQuote>() {
 
     @RequiresApi(34)
@@ -34,7 +36,7 @@ class QuotesRemoteMediator(
 
             Log.i("OsOs","PageNumber is: $page")
 
-            val response = networkService.getQuotesPage(
+            val response = quotesApiService.getQuotesPage(
                 page = page,
                 pageSize = PAGE_SIZE,
             )
@@ -42,11 +44,9 @@ class QuotesRemoteMediator(
             Log.i("OsOs", "Response size: ${response.size}")
             Log.i("OsOs", "Response contents: $response")
 
+
             coroutineScope {
-                launch {
-                    val insertedIds = dao.insertAll(convertRemoteQuotesToLocalQuotes(response))
-                    Log.i("OsOs", "Inserted IDs: $insertedIds")
-                }
+                launch { updateLocalDatabase(response) }
             }
 
             MediatorResult.Success(endOfPaginationReached = response.isEmpty())
@@ -56,4 +56,12 @@ class QuotesRemoteMediator(
             MediatorResult.Error(e)
         }
     }
+
+    private suspend fun updateLocalDatabase(quotes:List<RemoteQuote>){
+        val favoriteQuotesList = quoteDao.getFavorites()
+        val insertedIds = quoteDao.insertAllQuotes(convertRemoteQuotesToLocalQuotes(quotes))
+        quoteDao.updateAllQuotes(favoriteQuotesList.map { LocalQuoteFavoriteState(id=it.id, isFavorite = true) })
+        return insertedIds
+    }
+
 }

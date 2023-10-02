@@ -1,12 +1,13 @@
 package com.newOs.quotivate.quotes.domain.useCases.favorites
 
+import com.newOs.quotivate.quotes.data.repo.QuotesRepository
 import com.newOs.quotivate.quotes.domain.entity.Quote
 import javax.inject.Inject
 
 class GetInitialFavoritesUseCase @Inject constructor(
-    private val getSortedFavoritesUseCase: GetSortedFavoritesUseCase
+    private val quotesRepository: QuotesRepository,
 ){
 
-    suspend operator fun invoke(): List<Quote> = getSortedFavoritesUseCase()
+    suspend operator fun invoke(): List<Quote> = quotesRepository.getFavorites()
 
 }

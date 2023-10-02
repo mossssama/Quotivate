@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.favoritesList
+package com.newOs.quotivate.quotes.presentation.favorites
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel

@@ -5,14 +5,11 @@ import androidx.room.*
 
 @Dao
 interface QuoteDao {
-    @Query("SELECT * FROM LocalQuote ORDER BY author ASC")
+    @Query("SELECT * FROM LocalQuote")
     suspend fun getQuotes(): List<LocalQuote>
 
     @Query("SELECT * FROM LocalQuote WHERE isFavorite = true")
     suspend fun getFavorites(): List<LocalQuote>
-
-    @Insert(onConflict= OnConflictStrategy.REPLACE)
-    suspend fun addAllQuotes(quotes: List<LocalQuote>)
 
     @Update(entity = LocalQuote::class)
     suspend fun updateQuote(localQuoteFavoriteState: LocalQuoteFavoriteState)
@@ -20,12 +17,8 @@ interface QuoteDao {
     @Update(entity = LocalQuote::class)
     suspend fun updateAllQuotes(quotesStates: List<LocalQuoteFavoriteState>)
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(users: List<LocalQuote>)
-
-    @Query("DELETE FROM LocalQuote")
-    suspend fun clearAll()
+    suspend fun insertAllQuotes(quotes: List<LocalQuote>)
 
     @Query("DELETE FROM LocalQuote WHERE id IN (:idList)")
     suspend fun deletePage(idList: List<Int>)

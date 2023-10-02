@@ -8,13 +8,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.newOs.quotivate.quotes.presentation.favoritesList.FavoritesScreen
-import com.newOs.quotivate.quotes.presentation.favoritesList.FavoritesViewModel
-import com.newOs.quotivate.quotes.presentation.quoteOfDay.MainScreen
-import com.newOs.quotivate.quotes.presentation.quoteOfDay.MainViewModel
-import com.newOs.quotivate.quotes.presentation.quotesList.QuotesScreen
-import com.newOs.quotivate.quotes.presentation.quotesList.QuotesViewModel
-import com.newOs.quotivate.ui.theme.*
+import com.newOs.quotivate.quotes.presentation.favorites.FavoritesScreen
+import com.newOs.quotivate.quotes.presentation.favorites.FavoritesViewModel
+import com.newOs.quotivate.quotes.presentation.main.MainScreen
+import com.newOs.quotivate.quotes.presentation.main.MainViewModel
+import com.newOs.quotivate.quotes.presentation.quotes.QuotesScreen
+import com.newOs.quotivate.quotes.presentation.quotes.QuotesViewModel
+import com.newOs.quotivate.composeUi.theme.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

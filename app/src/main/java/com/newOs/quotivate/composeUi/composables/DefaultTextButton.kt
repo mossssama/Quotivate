@@ -1,4 +1,4 @@
-package com.newOs.quotivate.ui.composables
+package com.newOs.quotivate.composeUi.composables
 
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults

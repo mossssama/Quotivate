@@ -6,12 +6,8 @@ import javax.inject.Inject
 
 class GetInitialQuotesUseCase @Inject constructor(
     private val quotesRepository: QuotesRepository,
-    private val getSortedQuotesUseCase: GetSortedQuotesUseCase
 ){
 
-    suspend operator fun invoke(): List<Quote>{
-        quotesRepository.loadQuotes()
-        return getSortedQuotesUseCase()
-    }
+    suspend operator fun invoke(): List<Quote> = quotesRepository.getQuotes()
 
 }

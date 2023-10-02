@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.quotesList
+package com.newOs.quotivate.quotes.presentation.quotes
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.newOs.quotivate.ui.composables
+package com.newOs.quotivate.composeUi.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.quoteOfDay
+package com.newOs.quotivate.quotes.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.newOs.quotivate.ui.composables.DefaultIconButton
+import com.newOs.quotivate.composeUi.composables.DefaultIconButton
 import com.newOs.quotivate.quotes.presentation.Screen
-import com.newOs.quotivate.ui.composables.DefaultTextButton
-import com.newOs.quotivate.ui.composables.DefaultTextView
-import com.newOs.quotivate.ui.theme.*
+import com.newOs.quotivate.composeUi.composables.DefaultTextButton
+import com.newOs.quotivate.composeUi.composables.DefaultTextView
+import com.newOs.quotivate.composeUi.theme.*
 
 @Composable
 fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:()-> Unit, onFavoriteIconClick:(id:Int)-> Unit) {

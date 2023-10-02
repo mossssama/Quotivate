@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.quotesList
+package com.newOs.quotivate.quotes.presentation.quotes
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,12 +13,12 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.newOs.quotivate.R
 import com.newOs.quotivate.quotes.data.Converters.Companion.convertLocalQuoteToQuote
 import com.newOs.quotivate.quotes.data.local.LocalQuote
-import com.newOs.quotivate.ui.composables.DefaultIconButton
-import com.newOs.quotivate.ui.composables.DefaultText
+import com.newOs.quotivate.composeUi.composables.DefaultIconButton
+import com.newOs.quotivate.composeUi.composables.DefaultText
 import com.newOs.quotivate.quotes.domain.entity.Quote
-import com.newOs.quotivate.ui.theme.baby_blue
-import com.newOs.quotivate.ui.theme.black
-import com.newOs.quotivate.ui.theme.green
+import com.newOs.quotivate.composeUi.theme.baby_blue
+import com.newOs.quotivate.composeUi.theme.black
+import com.newOs.quotivate.composeUi.theme.green
 import kotlinx.coroutines.flow.Flow
 
 // Displays a list of quotes using LazyColumn and QuoteItem components.

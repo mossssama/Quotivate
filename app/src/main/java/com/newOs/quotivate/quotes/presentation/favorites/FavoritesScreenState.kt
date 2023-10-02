@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.favoritesList
+package com.newOs.quotivate.quotes.presentation.favorites
 
 import com.newOs.quotivate.quotes.domain.entity.Quote
 

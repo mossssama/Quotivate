@@ -1,4 +1,4 @@
-package com.newOs.quotivate.ui.theme
+package com.newOs.quotivate.composeUi.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

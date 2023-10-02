@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.presentation.favoritesList
+package com.newOs.quotivate.quotes.presentation.favorites
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,12 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.newOs.quotivate.R
-import com.newOs.quotivate.ui.composables.DefaultIconButton
-import com.newOs.quotivate.ui.composables.DefaultText
+import com.newOs.quotivate.composeUi.composables.DefaultIconButton
+import com.newOs.quotivate.composeUi.composables.DefaultText
 import com.newOs.quotivate.quotes.domain.entity.Quote
-import com.newOs.quotivate.ui.theme.baby_blue
-import com.newOs.quotivate.ui.theme.black
-import com.newOs.quotivate.ui.theme.green
+import com.newOs.quotivate.composeUi.theme.baby_blue
+import com.newOs.quotivate.composeUi.theme.black
+import com.newOs.quotivate.composeUi.theme.green
 
 // Composable to display the list of favorite quotes
 @Composable

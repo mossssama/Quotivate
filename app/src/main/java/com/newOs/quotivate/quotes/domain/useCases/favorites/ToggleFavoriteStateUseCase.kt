@@ -6,12 +6,11 @@ import javax.inject.Inject
 
 class ToggleFavoriteStateUseCase @Inject constructor(
     private val quotesRepository: QuotesRepository,
-    private val getSortedFavoritesUseCase: GetSortedFavoritesUseCase,
 ){
 
     suspend operator fun invoke(id: Int,oldState: Boolean): List<Quote>{
         quotesRepository.updateFavorites(id,oldState.not())
-        return getSortedFavoritesUseCase()
+        return quotesRepository.getFavorites()
     }
 
 }

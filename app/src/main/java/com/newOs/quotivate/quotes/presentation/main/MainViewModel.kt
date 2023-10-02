@@ -1,5 +1,7 @@
 package com.newOs.quotivate.quotes.presentation.main
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +18,6 @@ class MainViewModel @Inject constructor(
     private val getRandomQuoteUseCase: GetRandomQuoteUseCase,
     private val toggleRandomQuoteStateUseCase: ToggleRandomQuoteStateUseCase
 ): ViewModel() {
-
     // Mutable State to hold the current state of the Main Screen
     private var _state by mutableStateOf(
         MainScreenState(
@@ -65,6 +66,17 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             toggleRandomQuoteStateUseCase(id)
         }
+    }
+
+    fun shareQuote(quote: Quote,context: Context) {
+        val shareText = "${quote.text}\n{${quote.author}}"
+        val url = "https://quotes-dmug.onrender.com/stringQuote/${quote.id}"
+
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "$shareText\n$url")
+
+        context.startActivity(Intent.createChooser(intent, "Share Quote via"))
     }
 
 }

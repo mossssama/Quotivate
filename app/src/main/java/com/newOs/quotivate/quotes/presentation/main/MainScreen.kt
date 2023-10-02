@@ -1,5 +1,9 @@
 package com.newOs.quotivate.quotes.presentation.main
 
+import android.content.Context
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -16,10 +21,11 @@ import com.newOs.quotivate.quotes.presentation.Screen
 import com.newOs.quotivate.composeUi.composables.DefaultTextButton
 import com.newOs.quotivate.composeUi.composables.DefaultTextView
 import com.newOs.quotivate.composeUi.theme.*
+import com.newOs.quotivate.quotes.domain.entity.Quote
 
 @Composable
-fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:()-> Unit, onFavoriteIconClick:(id:Int)-> Unit) {
-
+fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:()-> Unit, onFavoriteIconClick:(id:Int)-> Unit, onShareIconClick:(quote: Quote,context: Context)-> Unit) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -95,7 +101,7 @@ fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                onClick = {}
+                onClick = { onShareIconClick(state.quote,context) }
             )
 
         }

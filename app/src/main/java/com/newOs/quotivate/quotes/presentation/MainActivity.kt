@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCompositionContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,7 +43,8 @@ fun Navigation(){
                 navController = navController,
                 state = vm.state.value,
                 onFavoriteIconClick = { id -> vm.toggleFavoriteState(id) },
-                onRefresh = { vm.getRandomQuote() }
+                onRefresh = { vm.getRandomQuote() },
+                onShareIconClick = { quote,context ->  vm.shareQuote(quote = quote, context = context)},
             )
         }
 

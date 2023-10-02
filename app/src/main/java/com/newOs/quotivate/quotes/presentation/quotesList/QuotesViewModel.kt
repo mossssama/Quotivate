@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.entity.Quote
 import com.newOs.quotivate.quotes.domain.useCases.quotes.LoadPagedQuotesUseCase
 import com.newOs.quotivate.quotes.domain.useCases.quotes.ToggleQuoteStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +16,8 @@ class QuotesViewModel @Inject constructor(
     private val toggleFavoriteStateUseCase: ToggleQuoteStateUseCase,
     private val loadPagedQuotesUseCase: LoadPagedQuotesUseCase
 ):ViewModel() {
+
+    // Hold the current screen state, initially with empty data and loading.
     private var _state by mutableStateOf(
         QuotesScreenState(
             quotes = emptyList(),

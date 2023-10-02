@@ -14,18 +14,20 @@ class FavoritesViewModel @Inject constructor(
     private val getInitialFavoritesUseCase: GetInitialFavoritesUseCase,
     private val toggleFavoriteStateUseCase: ToggleFavoriteStateUseCase
 ):ViewModel() {
+
+    // Mutable State to hold the current state of the Favorites screen
     private var _state by mutableStateOf(
         FavoritesScreenState(
             quotes = emptyList(),
             isLoading = true
         )
     )
-
-    /* To Prevent From updating state from UI layer (QuotesScreen) */
+    // Expose an Immutable state to prevent direct modification from the UI
     val state: State<FavoritesScreenState>
         get() = derivedStateOf { _state }
 
 
+    // Coroutine handler to handle errors during data loading
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _state = _state.copy(
             isLoading = false,
@@ -33,21 +35,22 @@ class FavoritesViewModel @Inject constructor(
         )
     }
 
-    /* Feed _state with the quotes once the QuotesViewModel instance is created */
+    // Initialize the state by fetching initial favorites
     init{ getFavorites() }
 
-    /* Feed _state with the quotes from db */
+    // Fetch initial favorite quotes from a data source
     private fun getFavorites(){
         viewModelScope.launch(coroutineExceptionHandler) {
             val receivedQuotes = getInitialFavoritesUseCase()
             _state = _state.copy(
                 quotes = receivedQuotes,
                 isLoading = false,
+                error = ""
             )
         }
     }
 
-    /* Toggle quote favorite state value in db in case user clicked on it */
+    // Toggle the favorite state of a quote and update the state accordingly
     fun toggleFavoriteState(quoteId: Int,oldValue: Boolean){
         viewModelScope.launch {
             val updatedQuotesList = toggleFavoriteStateUseCase(quoteId,oldValue)

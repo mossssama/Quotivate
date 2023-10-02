@@ -1,4 +1,4 @@
-package com.newOs.quotivate.quotes.domain
+package com.newOs.quotivate.quotes.domain.entity
 
 data class Quote(
     val author: String,

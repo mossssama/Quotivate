@@ -1,7 +1,5 @@
 package com.newOs.quotivate.quotes.data.repo
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import com.newOs.quotivate.quotes.data.Converters.Companion.buildLocalQuoteList
 import com.newOs.quotivate.quotes.data.Converters.Companion.convertLocalQuoteToQuote
@@ -9,7 +7,7 @@ import com.newOs.quotivate.quotes.data.Converters.Companion.convertRemoteQuoteTo
 import com.newOs.quotivate.quotes.data.local.LocalQuoteFavoriteState
 import com.newOs.quotivate.quotes.data.local.QuoteDao
 import com.newOs.quotivate.quotes.data.remote.QuotesApiService
-import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.entity.Quote
 import com.newOs.quotivate.quotes.data.remote.RemoteQuote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

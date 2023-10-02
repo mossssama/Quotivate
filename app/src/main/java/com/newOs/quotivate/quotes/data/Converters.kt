@@ -2,7 +2,7 @@ package com.newOs.quotivate.quotes.data
 
 import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.quotes.data.remote.RemoteQuote
-import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.entity.Quote
 
 class Converters {
     companion object {

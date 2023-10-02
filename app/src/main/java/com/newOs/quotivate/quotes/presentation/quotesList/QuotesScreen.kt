@@ -2,7 +2,6 @@ package com.newOs.quotivate.quotes.presentation.quotesList
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,11 +14,12 @@ import com.newOs.quotivate.quotes.data.Converters.Companion.convertRemoteQuoteTo
 import com.newOs.quotivate.quotes.data.remote.RemoteQuote
 import com.newOs.quotivate.ui.composables.DefaultIconButton
 import com.newOs.quotivate.ui.composables.DefaultText
-import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.entity.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
 
+// Displays a list of quotes using LazyColumn and QuoteItem components.
 @Composable
 fun QuotesScreen(quotes: LazyPagingItems<RemoteQuote>, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
 
@@ -41,8 +41,9 @@ fun QuotesScreen(quotes: LazyPagingItems<RemoteQuote>, onFavoriteIconClick:(id:I
 
 }
 
+// Displays a single quote inside a Card
 @Composable
-fun QuoteItem(quote: Quote, onFavoriteIconClick: (Int,Boolean)->Unit) {
+fun QuoteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),

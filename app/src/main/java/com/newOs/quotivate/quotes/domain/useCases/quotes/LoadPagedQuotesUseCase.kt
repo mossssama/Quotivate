@@ -6,7 +6,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.newOs.quotivate.quotes.data.remote.RemoteQuote
 import com.newOs.quotivate.quotes.data.repo.QuotesRepository
-import com.newOs.quotivate.quotes.domain.Quote
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

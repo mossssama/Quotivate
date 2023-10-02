@@ -14,11 +14,12 @@ import androidx.compose.ui.unit.sp
 import com.newOs.quotivate.R
 import com.newOs.quotivate.ui.composables.DefaultIconButton
 import com.newOs.quotivate.ui.composables.DefaultText
-import com.newOs.quotivate.quotes.domain.Quote
+import com.newOs.quotivate.quotes.domain.entity.Quote
 import com.newOs.quotivate.ui.theme.baby_blue
 import com.newOs.quotivate.ui.theme.black
 import com.newOs.quotivate.ui.theme.green
 
+// Composable to display the list of favorite quotes
 @Composable
 fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
     LazyColumn {
@@ -32,13 +33,16 @@ fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, ol
         }
     }
 
+    // If the screen is in a loading state, show a loading indicator
     if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-        { CircularProgressIndicator() }
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
     }
+
+    // If there is an error in the state, display an error message
     state.error?.let { Text(it) }
 }
 
+// Composable to display a single favorite quote item
 @Composable
 fun FavoriteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
     Card(

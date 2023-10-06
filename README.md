@@ -1,5 +1,7 @@
 <h1 align="center" id="title">Quotivate</h1>
 
+<p align="center"><img src="https://github.com/mossssama/Quotivate/blob/main/app/src/main/res/drawable/app_icon.png" alt="project-image"></p>
+
 <p id="description">Native Android app to provide dynamic quotes</p>
 
 <h2>🧐 Features</h2>
@@ -7,9 +9,10 @@
 Here're some of the project's best features:
 
 *   1- Quotes are read from backEnd which ensures adding new quotes without the need to update the app
-*   2- The user is able to create his favorite list of quotes
-*   3- A random quote is suggested to the user where he can ask for other random ones
-
+*   2- A random quote is suggested to the user where he can ask for other random ones
+*   3- The user is able to read quotes if he's offline because quotes pages are cached
+*   4- The user is able to create his favorite list of quotes
+*   5- The user can share the quote text & it's author's name in any other platforms
   
 <h2>💻 Built with</h2>
 

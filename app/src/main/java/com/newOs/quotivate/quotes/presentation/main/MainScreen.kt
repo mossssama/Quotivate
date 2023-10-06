@@ -1,9 +1,6 @@
 package com.newOs.quotivate.quotes.presentation.main
 
 import android.content.Context
-import android.content.Intent
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -33,7 +29,7 @@ fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
-            .background(brush = gradientBrush),
+            .background(brush = gradientBackground),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
@@ -142,8 +138,15 @@ fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:(
     }
 
     if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-        { CircularProgressIndicator(color = white) }
+        Box(modifier = Modifier.fillMaxSize().padding(top=200.dp), contentAlignment = Alignment.TopCenter) {
+            CircularProgressIndicator(color = white,modifier = Modifier.size(100.dp), strokeWidth = 12.dp)
+        }
     }
-    state.error?.let { Text(it) }
+
+    state.error?.let {
+        Box(modifier = Modifier.fillMaxSize().padding(top=200.dp), contentAlignment = Alignment.TopCenter) {
+            Text(text = it, color = white, fontSize = 30.sp)
+        }
+    }
+
 }

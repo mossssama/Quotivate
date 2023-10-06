@@ -25,10 +25,15 @@ fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, ol
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
+            .fillMaxHeight()
             .fillMaxWidth()
-            .background(brush = gradientBrush)
+            .background(brush = gradientBackground)
     ) {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.TopStart)
+        ){
             items(state.quotes) { quote ->
                 FavoriteItem(
                     quote = quote,
@@ -42,11 +47,17 @@ fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, ol
 
     // If the screen is in a loading state, show a loading indicator
     if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+        Box(modifier = Modifier.fillMaxSize().padding(top=200.dp), contentAlignment = Alignment.TopCenter) {
+            CircularProgressIndicator(color = white,modifier = Modifier.size(100.dp), strokeWidth = 12.dp)
+        }
     }
 
     // If there is an error in the state, display an error message
-    state.error?.let { Text(it) }
+    state.error?.let {
+        Box(modifier = Modifier.fillMaxSize().padding(top=200.dp), contentAlignment = Alignment.TopCenter) {
+            Text(text = it, color = white, fontSize = 30.sp)
+        }
+    }
 }
 
 // Composable to display a single favorite quote item

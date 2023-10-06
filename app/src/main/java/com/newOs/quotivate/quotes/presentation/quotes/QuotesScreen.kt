@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,15 +32,17 @@ fun QuotesScreen(quotes: Flow<PagingData<LocalQuote>>, onFavoriteIconClick:(id:I
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .background(brush = gradientBrush)
+            .background(color = black)
     ) {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = gradientBackground)
+        ) {
             items(lazyPagingItems.itemCount) { index ->
                 QuoteItem(
                     quote = convertLocalQuoteToQuote(lazyPagingItems[index]!!),
-                    onFavoriteIconClick = { id,oldValue ->
-                        onFavoriteIconClick(id,oldValue)
-                    }
+                    onFavoriteIconClick = { id,oldValue -> onFavoriteIconClick(id,oldValue) }
                 )
             }
         }

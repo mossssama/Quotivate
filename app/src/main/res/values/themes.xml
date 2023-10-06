@@ -3,5 +3,8 @@
 
     <style name="Theme.QuotivateApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/dark_marron</item>
+        <item name="android:windowBackground">@color/dark_marron</item>
+        <item name="windowSplashScreenBackground">@color/black</item>
     </style>
+
 </resources>

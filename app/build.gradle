@@ -95,6 +95,9 @@ dependencies {
     /* Paging dependencies */
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "androidx.paging:paging-compose:1.0.0-alpha17"
+
+    /* Splash API dependency */
+    implementation "androidx.core:core-splashscreen:1.0.0"
 }
 
 // Allow references to generated code

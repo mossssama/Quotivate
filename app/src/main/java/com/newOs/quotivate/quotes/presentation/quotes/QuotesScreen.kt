@@ -1,5 +1,6 @@
 package com.newOs.quotivate.quotes.presentation.quotes
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
@@ -15,10 +16,8 @@ import com.newOs.quotivate.quotes.data.Converters.Companion.convertLocalQuoteToQ
 import com.newOs.quotivate.quotes.data.local.LocalQuote
 import com.newOs.quotivate.composeUi.composables.DefaultIconButton
 import com.newOs.quotivate.composeUi.composables.DefaultText
+import com.newOs.quotivate.composeUi.theme.*
 import com.newOs.quotivate.quotes.domain.entity.Quote
-import com.newOs.quotivate.composeUi.theme.baby_blue
-import com.newOs.quotivate.composeUi.theme.black
-import com.newOs.quotivate.composeUi.theme.green
 import kotlinx.coroutines.flow.Flow
 
 // Displays a list of quotes using LazyColumn and QuoteItem components.
@@ -29,7 +28,9 @@ fun QuotesScreen(quotes: Flow<PagingData<LocalQuote>>, onFavoriteIconClick:(id:I
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(brush = gradientBrush)
     ) {
         LazyColumn {
             items(lazyPagingItems.itemCount) { index ->
@@ -51,8 +52,8 @@ fun QuoteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),
-        backgroundColor = baby_blue,
-        contentColor = black
+        backgroundColor = white,
+        contentColor = marron
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
             Column(modifier = Modifier.weight(0.85f)) {
@@ -62,9 +63,9 @@ fun QuoteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
             DefaultIconButton(
                 imageId = if (quote.isFavorite) R.drawable.favorite_icon else R.drawable.favorite_hollow_icon,
                 imageDescription = "Refresh Button",
-                borderColor = black,
-                iconColor = black,
-                backgroundColor = green,
+                borderColor = dark_marron,
+                iconColor = marron,
+                backgroundColor = white,
                 modifier = Modifier.weight(0.15f),
                 onClick = { onFavoriteIconClick(quote.id,quote.isFavorite) }
             )

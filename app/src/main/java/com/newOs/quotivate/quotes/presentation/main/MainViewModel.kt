@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _state = _state.copy(
             isLoading = false,
-            error = throwable.message
+            error = if(throwable.message=="timeout") "Bad Internet connection; try Again" else "De7k"
         )
     }
 

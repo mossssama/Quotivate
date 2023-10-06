@@ -1,5 +1,6 @@
 package com.newOs.quotivate.composeUi.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
@@ -17,3 +18,13 @@ val red = Color(0xFFe08d8d)
 val black = Color(0xFF000000)
 val white = Color(0xFFFFFFFF)
 val baby_blue = Color(0xFF80deea)
+val marron = Color(0xFFff455d)
+val dark_marron = Color(0xFFC08080)
+
+val gradientBrush = Brush.linearGradient(
+    colors = listOf(
+        dark_marron,
+        marron,
+//        Color(0xFF800000),
+    )
+)

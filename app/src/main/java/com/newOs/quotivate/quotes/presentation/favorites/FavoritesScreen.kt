@@ -1,5 +1,6 @@
 package com.newOs.quotivate.quotes.presentation.favorites
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,22 +15,28 @@ import androidx.compose.ui.unit.sp
 import com.newOs.quotivate.R
 import com.newOs.quotivate.composeUi.composables.DefaultIconButton
 import com.newOs.quotivate.composeUi.composables.DefaultText
+import com.newOs.quotivate.composeUi.theme.*
 import com.newOs.quotivate.quotes.domain.entity.Quote
-import com.newOs.quotivate.composeUi.theme.baby_blue
-import com.newOs.quotivate.composeUi.theme.black
-import com.newOs.quotivate.composeUi.theme.green
 
 // Composable to display the list of favorite quotes
 @Composable
 fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, oldValue:Boolean)-> Unit) {
-    LazyColumn {
-        items(state.quotes) { quote ->
-            FavoriteItem(
-                quote = quote,
-                onFavoriteIconClick = { id,oldValue ->
-                    onFavoriteIconClick(id,oldValue)
-                }
-            )
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(brush = gradientBrush)
+    ) {
+        LazyColumn {
+            items(state.quotes) { quote ->
+                FavoriteItem(
+                    quote = quote,
+                    onFavoriteIconClick = { id, oldValue ->
+                        onFavoriteIconClick(id, oldValue)
+                    }
+                )
+            }
         }
     }
 
@@ -48,7 +55,7 @@ fun FavoriteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
     Card(
         elevation = 6.dp,
         modifier = Modifier.padding(4.dp),
-        backgroundColor = baby_blue,
+        backgroundColor = white,
         contentColor = black
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
@@ -59,9 +66,9 @@ fun FavoriteItem(quote: Quote, onFavoriteIconClick: (Int, Boolean)->Unit) {
             DefaultIconButton(
                 imageId = R.drawable.delete_icon,
                 imageDescription = "Refresh Button",
-                borderColor = black,
-                iconColor = black,
-                backgroundColor = green,
+                borderColor = dark_marron,
+                iconColor = marron,
+                backgroundColor = white,
                 modifier = Modifier.weight(0.15f),
                 onClick = { onFavoriteIconClick(quote.id,quote.isFavorite) }
             )

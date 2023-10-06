@@ -48,6 +48,22 @@ fun QuotesScreen(quotes: Flow<PagingData<LocalQuote>>, onFavoriteIconClick:(id:I
         }
     }
 
+    if(lazyPagingItems.itemCount==0){
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "No Internet Connection", color = white, fontSize = 30.sp)
+                Text(text = "&", color = white, fontSize = 30.sp)
+                Text(text = "No Cached Quotes", color = white, fontSize = 30.sp)
+            }
+        }
+    }
+
 }
 
 // Displays a single quote inside a Card

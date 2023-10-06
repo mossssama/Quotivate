@@ -58,6 +58,14 @@ fun FavoritesScreen(state: FavoritesScreenState, onFavoriteIconClick:(id:Int, ol
             Text(text = it, color = white, fontSize = 30.sp)
         }
     }
+
+    // If the favorites list is Empty
+    if (state.quotes.isEmpty()) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(text = "Favorites List is Empty", color = white, fontSize = 30.sp)
+        }
+    }
+
 }
 
 // Composable to display a single favorite quote item

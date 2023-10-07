@@ -81,18 +81,18 @@ fun MainScreen(navController: NavController, state: MainScreenState, onRefresh:(
                 onClick = { onRefresh() }
             )
 
-            DefaultIconButton(
-                imageId = com.newOs.quotivate.R.drawable.favorite_icon,
-                imageDescription = "Favorite Button",
-                borderColor = white,
-                iconColor = marron,
-                backgroundColor = white,
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(start = 4.dp, end = 4.dp),
-                onClick = { onFavoriteIconClick(state.quote.id)}
-            )
+//            DefaultIconButton(
+//                imageId = com.newOs.quotivate.R.drawable.favorite_icon,
+//                imageDescription = "Favorite Button",
+//                borderColor = white,
+//                iconColor = marron,
+//                backgroundColor = white,
+//                modifier = Modifier
+//                    .weight(1f)
+//                    .fillMaxWidth()
+//                    .padding(start = 4.dp, end = 4.dp),
+//                onClick = { onFavoriteIconClick(state.quote.id)}
+//            )
 
             DefaultIconButton(
                 imageId = com.newOs.quotivate.R.drawable.share_icon,

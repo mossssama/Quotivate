@@ -4,6 +4,10 @@
 
 <p id="description">Native Android app to provide dynamic quotes</p>
 
+<h2>🚀 Soon to be downloaded from here</h2>
+
+[https://play.google.com/store/apps/details?id=com.newOs.quotivate](https://play.google.com/store/apps/details?id=com.newOs.quotivate)
+
 <h2>🧐 Features</h2>
 
 Here're some of the project's best features:

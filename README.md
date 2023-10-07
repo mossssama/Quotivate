@@ -30,3 +30,4 @@ Technologies used in the project: CodeBase is in **Kotlin** & UI is build in **J
 *   6- **Retrofit**: for fetching quotes from API
 *   7- **JetPack Navigation**: to manage navigation between screens(fragments)
 *   8- **JetPack Paging**: to apply pagination on fetching the quotes from API
+*   9- **Splash Screen API**: to apply custom splash screen

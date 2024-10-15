@@ -4,9 +4,9 @@
 
 <p id="description">Native Android app to provide dynamic quotes</p>
 
-<h2>🚀 Soon to be downloaded from here</h2>
+<h2>🚀 Downloaded from here</h2>
 
-[https://www.amazon.in/mossssama-Quotivate/dp/B0DGZQ9CVJ](https://play.google.com/store/apps/details?id=com.newOs.quotivate)
+[App link](https://www.amazon.in/mossssama-Quotivate/dp/B0DGZQ9CVJ)
 
 <h2>🧐 Features</h2>
 
